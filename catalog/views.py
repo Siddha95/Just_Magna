@@ -1,20 +1,20 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView
 from .models import Dish
+from .forms import IngredientForm
 # Create your views here.
 
 class CatalogView(ListView):
     model = Dish
-    
-    # template_name = "dish_list.html"
-    # context_object_name = 'dishes'  # opzionale, nome nel template
+
+class CatalogDetailView(DetailView):
+    model = Dish
+
+class IngredientCreateView(CreateView):
+    template_name = "ingredient_create.html"
+    form_class = IngredientForm
+    success_url = "/"
 
 
 
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(HomePage, self).get_context_data(**kwargs)
-    #     context['categories'] = Category.objects.filter(active=True)
-    #     context['products'] = Product.objects.filter(active=True).order_by('-created')
-    #     context['featured_products'] = Product.objects.filter(featured=True)
-    #     return context

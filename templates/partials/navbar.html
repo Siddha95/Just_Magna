@@ -1,0 +1,18 @@
+{% block navbar %}
+    {% load static %}
+    <!-- Image and text -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href={% url 'home' %}>
+                <img src="{% static 'dishes/logo.png' %}"
+                     alt=""
+                     width="60"
+                     height="44"
+                     class="d-inline-block align-top">
+            </a>
+            <p class="nav-item">
+                <a class="nav-link" href="{% url 'ingredient-create' %}">Aggiungi ingrediente</a>
+            </p>
+        </div>
+    </nav>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% block footer %}
+    <footer class="footer py-5 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="mb-4">
+                        <h5 class="mb-3" style="color: var(--aqua-accent)">Footy Shirt</h5>
+                        <p class="mb-0" style="color: #888">Il tuo negozio di maglie da calcio di fiducia. Qualità garantita e spedizione veloce in tutta Italia.</p>
+                    </div>
+                    <div class="mt-4">
+                        <h6 class="mb-3">Newsletter</h6>
+                        <div class="input-group">
+                            <input type="email" class="form-control bg-dark border-0 text-white" placeholder="La tua email" style="border-radius: 20px 0 0 20px;">
+                            <button class="btn btn-primary" style="border-radius: 0 20px 20px 0;">Iscriviti</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="mb-3" style="color: var(--aqua-accent)">Link Utili</h5>
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><a href="#" class="footer-link">Chi Siamo</a></li>
+                                <li class="mb-2"><a href="#" class="footer-link">Spedizioni</a></li>
+                                {% comment %} <li class="mb-2"><a href="#" class="footer-link">Resi</a></li> {% endcomment %}
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><a href="#" class="footer-link">FAQ</a></li>
+                                <li class="mb-2"><a href="#" class="footer-link">Privacy</a></li>
+                                <li class="mb-2"><a href="#" class="footer-link">Contatti</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="mb-4" style="color: var(--aqua-accent)">Seguici</h5>
+                    <p class="mb-3" style="color: #888">Resta aggiornato sulle ultime novità e piatti deliziosi</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-5 footer-border">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start" style="color: #888">
+                    <small>&copy; 2025 Just Magna. Tutti i diritti riservati.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <img src="./images/payment-methods.png" alt="Metodi di pagamento" height="24">
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
