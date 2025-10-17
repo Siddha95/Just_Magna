@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-{% include 'partials/header.html' %}
+  {% include 'partials/header.html' %}
+
 <body>
-{% include 'partials/navbar.html' %}
-{% include 'partials/sidebar.html' %}
-{% block content %}{% endblock %}
-{% include 'partials/footer.html' %}
+  {% include 'partials/navbar.html' %}
+  {% block content %}{% endblock %}
+
+  {% include 'partials/footer.html' %}
+
 </body>
+  {% include 'partials/sidebar.html' %}
 </html>
  

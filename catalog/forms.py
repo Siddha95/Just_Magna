@@ -13,5 +13,3 @@ class IngredientForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'classes':'form-control'})
         }
-    def clean(self):
-        fields = self.cleaned_data
