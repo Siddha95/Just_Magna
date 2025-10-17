@@ -2,10 +2,12 @@
     <div class="card" style="width: 18rem;">
         <img src="{{ dish.image.url }}" width="150" height="250" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{ dish.name }} </h5>
+            <h5 class="card-title">{{ dish.name }}</h5>
             <p class="card-text">{{ dish.descrizione }}</p>
             <p class="card-text">${{ dish.price }}</p>
             <a href="{% url 'catalog-detail' dish.pk %}" class="btn btn-primary">Dettagli</a>
         </div>
     </div>
 </div>
+
+

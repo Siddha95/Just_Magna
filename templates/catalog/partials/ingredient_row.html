@@ -1,0 +1,14 @@
+
+<tr>
+    <th scope="row">{{ingredient.id}}</th>
+    <td>{{ingredient.name}}</td>
+    <td>{% if ingredient.gluten_free %}SI{% else %}NO{% endif %}</td>
+    <td>{% if ingredient.vegetarian %}SI{% else %}NO{% endif %}</td>
+    <td>{% if ingredient.vegan %}SI{% else %}NO{% endif %}</td>
+    <td>
+        <button class="button-ingredient" href="{% url 'ingredient-delete' ingredient.pk %}">Elimina</button>
+        <button class="button-ingredient">Modifica</button>
+        <a  class="button-ingredient" href="{% url 'ingredient-create' %}">Aggiungi</a>
+        
+    </td>
+</tr>
