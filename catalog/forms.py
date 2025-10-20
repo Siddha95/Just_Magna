@@ -13,3 +13,10 @@ class IngredientForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'classes':'form-control'})
         }
+
+
+
+# class DeleteForm(forms.ModelForm):
+#     class Meta:
+#         model = Ingredient
+#         fields = []
