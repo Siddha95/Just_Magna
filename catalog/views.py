@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, DeleteView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Dish, Ingredient
 from .forms import IngredientForm
 from django.http import Http404
+from django.urls import reverse_lazy
 # Create your views here.
 
 class CatalogView(ListView):
@@ -23,8 +24,9 @@ class AmministrazioneView(ListView):
 
 # view per eliminare ingrediente
 class DeleteIngredientView(DeleteView):
-    def get_object(self, queryset = None):
-        return super().get_object(queryset)
+    model = Ingredient
+    template_name = "catalog/confirm_delete.html"
+    success_url = reverse_lazy("ingredient-list")
 
 # view per fare l'upgrade di un ingrediente
 
