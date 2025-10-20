@@ -31,7 +31,9 @@ class DeleteIngredientView(DeleteView):
 # view per fare l'upgrade di un ingrediente
 
 class UpdateIngredientView(UpdateView):
-    pass 
-
+    model = Ingredient
+    form_class = IngredientForm
+    template_name = "catalog/ingredient_update_form.html"
+    success_url = reverse_lazy("ingredient-list")
 
 

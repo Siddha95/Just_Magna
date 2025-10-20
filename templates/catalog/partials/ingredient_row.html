@@ -6,11 +6,13 @@
     <td>{% if ingredient.vegetarian %}SI{% else %}NO{% endif %}</td>
     <td>{% if ingredient.vegan %}SI{% else %}NO{% endif %}</td>
     <td>
-        <button type="button-ingredient">
+        <button class="button-ingredient">
             <a href="{% url 'ingredient-delete' pk=ingredient.pk %}">Elimina</a>
         </button>    
-        <button class="button-ingredient">Modifica</button>
-        <button type="button-ingredient">
+        <button class="button-ingredient">
+            <a href="{% url 'ingredient-update' pk=ingredient.pk %}">Modifica</a>
+        </button>
+        <button class="button-ingredient">
             <a  href="{% url 'ingredient-create' %}">Aggiungi</a>
         </button>
         
