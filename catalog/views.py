@@ -33,7 +33,7 @@ class DeleteIngredientView(DeleteView):
 class UpdateIngredientView(UpdateView):
     model = Ingredient
     form_class = IngredientForm
-    template_name = "catalog/ingredient_update_form.html"
+    # template_name = "catalog/ingredient_update_form.html"
     success_url = reverse_lazy("ingredient-list")
 
 
