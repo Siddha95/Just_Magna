@@ -1,19 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container my-5 text-center">
-        <h1>Magna che te passa!</h1>
-        <p class="lead">
-            Concediti ora una favolosa pausa ricca di sapore e di carboidrati. E'
-            scientificamente provato: i nostri piatti ti aiutano a scrivere un codice più performante
-        </p>
-        <button type="button" class="btn btn-primary">Ordina Subito!</button>
-        <button type="button" class="btn btn-secondary">Contattaci</button>
+    <div class="dish-header">
+        <h1>Piatti registrati</h1>
+        <p>Lista di tutti i piatti registrati a sistema</p>
     </div>
-    <div class="container">
-        <div class="row">
-            {% for dish in object_list %}
-                {% include "catalog/partials/dish_card.html" with dish=dish %}
-            {% endfor %}
-        </div>
+    <div class="add-button">
+        <button class="button-dish-add">
+            <a href="{% url 'dish-create' %}">Aggiungi</a>
+        </button>
     </div>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome Piatto</th>
+                <th scope="col">Gluten Free</th>
+                <th scope="col">Vegetariano</th>
+                <th scope="col">Vegano</th>
+                <th scope="col">Prezzo</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Immagine</th>
+                <th scope="col">Azioni</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for dish in object_list %}
+                    {% include "catalog/partials/dish_row.html" with dish=dish%}
+                {% endfor %}
+            </tbody>
+    </table>
 {% endblock %}
