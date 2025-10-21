@@ -30,5 +30,5 @@ class DishForm(forms.ModelForm):
         widgets = {
             # 'name' : forms.TextInput(attrs={'class':'form-control'}),
             # 'descrizione' : forms.TextInput(attrs={'rows':3, 'class': 'form-control'}),
-            'image' : forms.ClearableFileInput(attrs={'class' : 'form-control'}),
+            # 'image' : forms.ClearableFileInput(attrs={'class' : 'form-control'}),
         }

@@ -1,19 +1,37 @@
 {% block navbar %}
     {% load static %}
-    <!-- Image and text -->
+    
     <nav class="navbar">
         <div class="container-fluid">
-            <a class="navbar-brand" href={% url 'home' %}>
-                <img class="logo" src="{% static 'dishes/logo.png' %}"
-                     alt=""
-                     width="60"
-                     height="44"
-                >
+            
+           
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img class="logo"
+                    src="{% static 'dishes/logo.png' %}"
+                    alt="Logo"
+                    width="60"
+                    height="44">
             </a>
-            <p class="nav-item">
-                <a class="nav-link" href="{% url 'ingredient-list' %}">Amministrazione Ingredienti</a>
-                 <a class="nav-link" href="{% url 'dish-list' %}">Amministrazione Piatti</a>
-            </p>
+            <div class="admin-link">
+                <a class="nav-link" href="{% url 'ingredient-list' %}">Amministrazione Ingredienti</a>                
+            </div>
+
+            <div class="admin-link">
+                <a class="nav-link" href="{% url 'dish-list' %}">Amministrazione Piatti</a>
+            </div>
+            
+            <div class="login-logout">
+                {% if user.is_authenticated %}
+                    <span class="navbar-text me-2">Ciao, {{ user.username }}!</span>
+                    <form action="{% url 'logout' %}" method="post" class="btn btn-outline-primary btn-sm">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <span class="navbar-text me-2">Non sei loggato, vergognati</span>
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-sm">Log In</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
 {% endblock %}
