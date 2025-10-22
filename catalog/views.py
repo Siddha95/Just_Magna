@@ -19,6 +19,15 @@ class CatalogDetailView(LoginRequiredMixin, DetailView):
     redirect_field_name = "redirect_to"
     model = Dish
 
+    def get_context_data(self, **kwargs):
+        kwargs.setdefault("view", self)
+        context = super().get_context_data(**kwargs)
+        if self.object.course:
+            context['related_dishes'] = Dish.objects.filter(course=self.object.course).exclude(id=self.object.id)
+        else:
+            context['related_dishes'] = Dish.objects.none()
+        return context
+
 # crea da admin views
 class IngredientCreateView(CreateView):
     template_name = "catalog/ingredient_form.html"

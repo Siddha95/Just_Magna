@@ -26,6 +26,7 @@ class DishForm(forms.ModelForm):
                   'price' : 'Prezzo',
                   'descrizione' : 'Descrizione',
                   'image' : 'Immagine',
+                  'course' : 'Portata',
         }
         widgets = {
             # 'name' : forms.TextInput(attrs={'class':'form-control'}),
