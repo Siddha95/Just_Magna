@@ -12,6 +12,7 @@ class Course(models.Model):
 
 class Dish(models.Model):
     name = models.CharField(max_length=200)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE,null=True,blank=True)
     gluten_free = models.BooleanField(default=False)
     vegetarian = models.BooleanField(default=False)
     vegan = models.BooleanField(default=False)
@@ -30,7 +31,3 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
-    
-
-
-
