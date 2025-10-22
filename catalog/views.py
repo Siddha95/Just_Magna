@@ -13,6 +13,8 @@ class CatalogView(ListView):
     context_object_name = "dishes"
     template_name = "catalog/catalog_list.html"
 
+    
+
 # se il template ha lo stesso nome del model non serve specificarlo con tempalte name
 
 

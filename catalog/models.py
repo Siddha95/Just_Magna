@@ -11,23 +11,23 @@ class Course(models.Model):
     
 
 class Dish(models.Model):
-    name = models.CharField(max_length=200)
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL,null=True,blank=True)
-    gluten_free = models.BooleanField(default=False)
-    vegetarian = models.BooleanField(default=False)
-    vegan = models.BooleanField(default=False)
-    price = models.FloatField(blank=True, null=True)
-    descrizione = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to='images/')
+    name = models.CharField(max_length=200, verbose_name="Nome")
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL,null=True,blank=True, verbose_name="Portata")
+    gluten_free = models.BooleanField(default=False, verbose_name="Senza glutine")
+    vegetarian = models.BooleanField(default=False, verbose_name="Vegetariano")
+    vegan = models.BooleanField(default=False, verbose_name="Vegano")
+    price = models.FloatField(blank=True, null=True, verbose_name="Prezzo")
+    descrizione = models.TextField(blank=True, null=True, verbose_name="Descrizione")
+    image = models.ImageField(upload_to='images/', verbose_name="Immagine")
 
     def __str__(self):
         return self.name
     
 class Ingredient(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, verbose_name="Nome")
     gluten_free = models.BooleanField(default=False,verbose_name="Senza glutine")
-    vegetarian = models.BooleanField(default=False)
-    vegan = models.BooleanField(default=False)
+    vegetarian = models.BooleanField(default=False, verbose_name="Vegetariano")
+    vegan = models.BooleanField(default=False, verbose_name="Vegano")
 
     def __str__(self):
         return self.name
