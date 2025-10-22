@@ -28,6 +28,7 @@
         <p><strong>Prezzo: $</strong> {{ dish.price }}</p>
 
     </div>
+    {% if related_dishes %}
     <div class="container same-course">
         <h2>Altri piatti della stessa portata:</h2>
         <div class="row">
@@ -36,5 +37,6 @@
             {% endfor %}        
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

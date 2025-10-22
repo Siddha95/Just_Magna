@@ -25,7 +25,7 @@ class Dish(models.Model):
     
 class Ingredient(models.Model):
     name = models.CharField(max_length=200)
-    gluten_free = models.BooleanField(default=False)
+    gluten_free = models.BooleanField(default=False,verbose_name="Senza glutine")
     vegetarian = models.BooleanField(default=False)
     vegan = models.BooleanField(default=False)
 

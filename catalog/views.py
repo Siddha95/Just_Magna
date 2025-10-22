@@ -8,8 +8,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 class CatalogView(ListView):
+    paginate_by = 3
     model = Dish
+    context_object_name = "dishes"
     template_name = "catalog/catalog_list.html"
+
 # se il template ha lo stesso nome del model non serve specificarlo con tempalte name
 
 
@@ -20,12 +23,10 @@ class CatalogDetailView(LoginRequiredMixin, DetailView):
     model = Dish
 
     def get_context_data(self, **kwargs):
-        kwargs.setdefault("view", self)
         context = super().get_context_data(**kwargs)
         if self.object.course:
             context['related_dishes'] = Dish.objects.filter(course=self.object.course).exclude(id=self.object.id)
-        else:
-            context['related_dishes'] = Dish.objects.none()
+       
         return context
 
 # crea da admin views

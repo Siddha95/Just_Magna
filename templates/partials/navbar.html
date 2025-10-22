@@ -24,9 +24,9 @@
                 {% if user.is_authenticated %}
                     <span class="navbar-text me-2">Ciao, {{ user.username }}!</span>
                     <a href="{% url 'password_change' %}">Cambia Password</a>
-                    <form action="{% url 'logout' %}" method="post" class="btn btn-outline-primary btn-sm">
+                    <form action="{% url 'logout' %}" method="post" class="nopadding">
                         {% csrf_token %}
-                        <button type="submit">Logout</button>
+                        <button type="submit" class="btn btn-primary ">Logout</button>
                     </form>
                     
                 {% else %}

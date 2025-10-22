@@ -5,7 +5,7 @@
             <h2 class="card-title">{{ dish.name }}</h2>
             <p class="card-text">{{ dish.descrizione }}</p>
             <p class="card-text">${{ dish.price }}</p>
-            <a href="{% url 'catalog-detail' dish.pk %}" class="btn btn-primary">Dettagli</a>
+            <a href="{% url 'dish-detail' dish.pk %}" class="btn btn-primary">Dettagli</a>
         </div>
     </div>
 </div>
