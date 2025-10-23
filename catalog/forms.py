@@ -14,7 +14,6 @@ class DishForm(forms.ModelForm):
     class Meta:
         model = Dish 
         fields = ['name', 'gluten_free', 'vegetarian', 'vegan', 'price', 'course', 'descrizione', 'image']
-       
         widgets = {
             # 'name' : forms.TextInput(attrs={'class':'form-control'}),
             # 'descrizione' : forms.TextInput(attrs={'rows':3, 'class': 'form-control'}),
