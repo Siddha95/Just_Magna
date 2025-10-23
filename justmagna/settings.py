@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ecommerce.apps.EcommerceConfig',
     'catalog.apps.CatalogConfig',
+    'crm.apps.CrmConfig',
     'accounts',
 ]
 
