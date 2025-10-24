@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="form-container">
-    <form method="POST">
-        <h1>Inserisci un ingrediente</h1>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Inserisci</button>
-    </form>
-</div>
+    <div class="form-container">
+        <form method="POST">
+            <h1>Inserisci un ingrediente</h1>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Inserisci</button>
+        </form>
+    </div>
 {% endblock %}

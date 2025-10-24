@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="form-container">
-    <form method="POST" enctype="multipart/form-data">
-        <h1>Inserisci un Piatto</h1>
-        <h4>Movite pure</h4>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Inserisci</button>
-    </form>
-</div>
+    <div class="form-container">
+        <form method="POST" enctype="multipart/form-data">
+            <h1>Inserisci un Piatto</h1>
+            <h4>Movite pure</h4>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Inserisci</button>
+        </form>
+    </div>
 {% endblock %}

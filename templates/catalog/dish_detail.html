@@ -1,42 +1,57 @@
 {% extends "base.html" %}
 {% block content %}
-
-<div class="container dish-details">
-    <div class="row">
-
-        <h1>Nome del Piatto: {{ dish.name }}</h1>
-        <img src="{{ dish.image.url }}" class="card-img dish-detail-photo" alt="...">
-        <p><strong>{{ dish.course }}</strong></p>
-        <p><strong>Descrizione:</strong> {{ dish.descrizione }}</p>
-        
-{% comment %} <p><strong>Gluten Free:</strong> {{ dish.gluten_free }}</p>
-<p><strong>Vegetariano:</strong> {{ dish.vegetarian }}</p>
-<p><strong>Vegano:</strong> {{ dish.vegan }}</p> {% endcomment %}
-        <p>
-            <strong>Gluten Free:</strong>
-            {% if dish.gluten_free %}SI{% else %} NO {% endif %}
-        </p>
-        <p>
-        <strong>Vegetariano:</strong>
-            {% if dish.vegetarian %}SI{% else %}NO{% endif %}
-        </p>
-        <p>
-        <strong>Vegano:</strong>
-            {% if dish.vegan %}SI{% else %}NO{% endif %}
-        </p>
-
-        <p><strong>Prezzo: $</strong> {{ dish.price }}</p>
-
-    </div>
-    {% if related_dishes %}
-    <div class="container same-course">
-        <h2>Altri piatti della stessa portata:</h2>
+    <div class="container dish-details">
         <div class="row">
-            {% for dish in related_dishes %}
-                {% include "catalog/partials/dish_card.html" with piatto=dish %}
-            {% endfor %}        
+            <h1>Nome del Piatto: {{ dish.name }}</h1>
+            <img src="{{ dish.image.url }}"
+                 class="card-img dish-detail-photo"
+                 alt="...">
+            <p>
+                <strong>{{ dish.course }}</strong>
+            </p>
+            <p>
+                <strong>Descrizione:</strong> {{ dish.descrizione }}
+            </p>
+            {% comment %} <p><strong>Gluten Free:</strong> {{ dish.gluten_free }}</p>
+<p><strong>Vegetariano:</strong> {{ dish.vegetarian }}</p>
+            <p><strong>Vegano:</strong> {{ dish.vegan }}</p> {% endcomment %}
+            <p>
+                <strong>Gluten Free:</strong>
+                {% if dish.gluten_free %}
+                    SI
+                {% else %}
+                    NO
+                {% endif %}
+            </p>
+            <p>
+                <strong>Vegetariano:</strong>
+                {% if dish.vegetarian %}
+                    SI
+                {% else %}
+                    NO
+                {% endif %}
+            </p>
+            <p>
+                <strong>Vegano:</strong>
+                {% if dish.vegan %}
+                    SI
+                {% else %}
+                    NO
+                {% endif %}
+            </p>
+            <p>
+                <strong>Prezzo: $</strong> {{ dish.price }}
+            </p>
         </div>
+        {% if related_dishes %}
+            <div class="container same-course">
+                <h2>Altri piatti della stessa portata:</h2>
+                <div class="row">
+                    {% for dish in related_dishes %}
+                        {% include "catalog/partials/dish_card.html" with piatto=dish %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
 {% endblock %}

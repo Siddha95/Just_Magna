@@ -9,7 +9,6 @@
             <a href="{% url 'dish-create' %}">Aggiungi</a>
         </button>
     </div>
-
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -24,10 +23,10 @@
                 <th scope="col">Azioni</th>
             </tr>
         </thead>
-            <tbody>
-                {% for dish in object_list %}
-                    {% include "catalog/partials/dish_row.html" with dish=dish%}
-                {% endfor %}
-            </tbody>
+        <tbody>
+            {% for dish in object_list %}
+                {% include "catalog/partials/dish_row.html" with dish=dish %}
+            {% endfor %}
+        </tbody>
     </table>
 {% endblock %}

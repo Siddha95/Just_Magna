@@ -1,16 +1,33 @@
-
 <tr>
-    <th scope="row">{{ingredient.id}}</th>
-    <td>{{ingredient.name}}</td>
-    <td>{% if ingredient.gluten_free %}SI{% else %}NO{% endif %}</td>
-    <td>{% if ingredient.vegetarian %}SI{% else %}NO{% endif %}</td>
-    <td>{% if ingredient.vegan %}SI{% else %}NO{% endif %}</td>
+    <th scope="row">{{ ingredient.id }}</th>
+    <td>{{ ingredient.name }}</td>
+    <td>
+        {% if ingredient.gluten_free %}
+            SI
+        {% else %}
+            NO
+        {% endif %}
+    </td>
+    <td>
+        {% if ingredient.vegetarian %}
+            SI
+        {% else %}
+            NO
+        {% endif %}
+    </td>
+    <td>
+        {% if ingredient.vegan %}
+            SI
+        {% else %}
+            NO
+        {% endif %}
+    </td>
     <td>
         <button class="button-ingredient">
             <a href="{% url 'ingredient-delete' pk=ingredient.pk %}">Elimina</a>
-        </button>    
+        </button>
         <button class="button-ingredient">
             <a href="{% url 'ingredient-update' pk=ingredient.pk %}">Modifica</a>
-        </button>        
+        </button>
     </td>
 </tr>

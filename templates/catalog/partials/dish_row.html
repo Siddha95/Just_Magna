@@ -1,18 +1,36 @@
 <tr>
-    <th scope="row">{{dish.id}}</th>
-    <td>{{dish.name}}</td>
-    <td>{% if dish.gluten_free %}SI{% else %}NO{% endif %}</td>
-    <td>{% if dish.vegan %}SI{% else %}NO{% endif %}</td>
-    <td>{% if dish.vegetarian %}SI{% else %}NO{% endif %}</td>
-    <td>{{dish.price}}</td>
-    <td>{{dish.descrizione}}</td>
-    <td>{{dish.image}}</td>
+    <th scope="row">{{ dish.id }}</th>
+    <td>{{ dish.name }}</td>
+    <td>
+        {% if dish.gluten_free %}
+            SI
+        {% else %}
+            NO
+        {% endif %}
+    </td>
+    <td>
+        {% if dish.vegan %}
+            SI
+        {% else %}
+            NO
+        {% endif %}
+    </td>
+    <td>
+        {% if dish.vegetarian %}
+            SI
+        {% else %}
+            NO
+        {% endif %}
+    </td>
+    <td>{{ dish.price }}</td>
+    <td>{{ dish.descrizione }}</td>
+    <td>{{ dish.image }}</td>
     <td>
         <button class="button-dish">
             <a href="{% url 'dish-delete' pk=dish.pk %}">Elimina</a>
-        </button>    
+        </button>
         <button class="button-dish">
             <a href="{% url 'dish-update' pk=dish.pk %}">Modifica</a>
-        </button>        
+        </button>
     </td>
 </tr>
