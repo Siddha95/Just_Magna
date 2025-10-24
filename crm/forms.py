@@ -41,4 +41,23 @@ class ContactForm(forms.Form):
                 "Devi fornire almeno un'email o un numero di telefono"
             )
         return cleaned_data
-        
+    
+
+class RatingForm(forms.ModelForm):
+
+    class Meta:
+        model = Rating
+        fields = ['survey', 'course', 'vote', 'dish']
+    widgets = {
+        # vuote per ora
+    }   
+
+class SurveyForm(forms.ModelForm):
+
+    class Meta:
+        model = Survey
+        fields = ['user', 'feedback'] 
+
+    widgets = {
+        # vuote per ora
+    }     

@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from django.core.mail import send_mail
 from django.conf import settings 
-from django.shortcuts import reverse 
-from django.views.generic import TemplateView, FormView 
-from .forms import ContactForm
+from django.shortcuts import reverse
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, CreateView, FormView
+from .forms import *
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
 
 class SuccessView(TemplateView):
     template_name = "crm/success.html"
-
+class SuccessSurveyView(TemplateView):
+    template_name = "crm/success_survey.html"
 class ContactView(FormView):
     form_class = ContactForm
     template_name = "crm/contact.html"
@@ -44,3 +48,17 @@ class ContactView(FormView):
             recipient_list=[settings.NOTIFY_EMAIL],
         )
         return super(ContactView, self).form_valid(form)
+    
+
+class AddRatingView(LoginRequiredMixin, CreateView):
+    form_class = RatingForm
+    template_name = 'crm/rating_form.html'
+    success_url = reverse_lazy('add-survey')
+
+
+class AddSurveyView(LoginRequiredMixin, CreateView):
+    form_class = SurveyForm
+    template_name = 'crm/survey_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy("success-survey")
