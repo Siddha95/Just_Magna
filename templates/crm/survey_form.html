@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Contattaci</h1>
+    <h1>Survey Form</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
         <div class="form-actions">
             <button type="submit">Invia</button>
         </div>

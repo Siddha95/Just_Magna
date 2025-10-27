@@ -28,6 +28,3 @@ class Rating(models.Model):
     def __str__(self):
         return f"Punteggio del Survey di - {self.survey.user.username}"
     
-
-
-

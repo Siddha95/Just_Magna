@@ -50,15 +50,30 @@ class ContactView(FormView):
         return super(ContactView, self).form_valid(form)
     
 
-class AddRatingView(LoginRequiredMixin, CreateView):
-    form_class = RatingForm
-    template_name = 'crm/rating_form.html'
-    success_url = reverse_lazy('add-survey')
+# class AddRatingView(LoginRequiredMixin, CreateView):
+#     form_class = RatingForm
+#     template_name = 'crm/rating_form.html'
+#     success_url = reverse_lazy('add-survey')
 
 
-class AddSurveyView(LoginRequiredMixin, CreateView):
-    form_class = SurveyForm
+# class AddSurveyView(LoginRequiredMixin, CreateView):
+#     form_class = SurveyForm
+#     template_name = 'crm/survey_form.html'
+
+#     def get_success_url(self):
+#         return reverse_lazy("success-survey")
+
+
+class SurveyView(LoginRequiredMixin, CreateView):
+    model = Survey
+    fields = ["feedback"]
     template_name = 'crm/survey_form.html'
+    success_url = reverse_lazy('success-survey')
 
-    def get_success_url(self):
-        return reverse_lazy("success-survey")
+    def form_valid(self, form):
+        # form.instance.user = self.request.user 
+        user = self.request.user
+        if Survey.objects.filter(user=user).exists():
+            return render(self.request, 'crm/unsuccess_form.html')
+        form.instance.user = user 
+        return super().form_valid(form)

@@ -43,21 +43,35 @@ class ContactForm(forms.Form):
         return cleaned_data
     
 
-class RatingForm(forms.ModelForm):
+# class RatingForm(forms.ModelForm):
 
-    class Meta:
-        model = Rating
-        fields = ['survey', 'course', 'vote', 'dish']
-    widgets = {
-        # vuote per ora
-    }   
+#     class Meta:
+#         model = Rating
+#         fields = ['survey', 'course', 'vote', 'dish']
+#     widgets = {
+#         # vuote per ora
+#     }   
+
+# class SurveyForm(forms.ModelForm):
+
+#     class Meta:
+#         model = Survey
+#         fields = ['user', 'feedback'] 
+
+#     widgets = {
+#         # vuote per ora
+#     }     
+
 
 class SurveyForm(forms.ModelForm):
-
+    # course = forms.ModelChoiceField(queryset=Course.objects.all(), required=True)
+    # vote = forms.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)],required=True)
+    # dish = forms.ModelChoiceField(queryset=Dish.objects.all(), required=False)
     class Meta:
-        model = Survey
-        fields = ['user', 'feedback'] 
+         model = Survey
+         fields = ('feedback',)
 
-    widgets = {
-        # vuote per ora
-    }     
+   
+    
+
+    
