@@ -56,7 +56,13 @@ class SurveyView(LoginRequiredMixin, CreateView):
     template_name = 'crm/survey_form.html'
     success_url = reverse_lazy('success-survey')
 
-    
+    def dispatch(self, request, *args, **kwargs):
+    # Try to dispatch to the right method; if a method doesn't exist,
+    # defer to the error handler. Also defer to the error handler if the
+    # request method isn't on the approved list.
+        if Survey.objects.filter(user=request.user).exists():
+            return render(request, 'crm/survey_already_submitted.html')
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         # form.instance.user = self.request.user 
@@ -81,4 +87,3 @@ class SurveyView(LoginRequiredMixin, CreateView):
 
         return response
     
-

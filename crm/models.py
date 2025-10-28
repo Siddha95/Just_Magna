@@ -22,7 +22,7 @@ class Rating(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(49)], 
         verbose_name="Punteggio"
     )
-    dish = models.ForeignKey(Dish, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Piatto" )
+    dish = models.ForeignKey(Dish, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Piatto preferito" )
 
 
     def __str__(self):
