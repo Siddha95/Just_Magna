@@ -66,14 +66,36 @@ class ContactView(FormView):
 
 class SurveyView(LoginRequiredMixin, CreateView):
     model = Survey
-    fields = ["feedback"]
+    form_class = SurveyForm
     template_name = 'crm/survey_form.html'
     success_url = reverse_lazy('success-survey')
+
+    
 
     def form_valid(self, form):
         # form.instance.user = self.request.user 
         user = self.request.user
-        if Survey.objects.filter(user=user).exists():
-            return render(self.request, 'crm/unsuccess_form.html')
+        # if Survey.objects.filter(user=user).exists():
+        #     return render(self.request, 'crm/unsuccess_form.html')
         form.instance.user = user 
-        return super().form_valid(form)
+        # questa salva il nuovo oggetto Survey nel database
+        response =  super().form_valid(form)
+
+        for course in Course.objects.all():
+            #a questo punto devi usare form.cleaned_data e NON request.POST
+            vote = form.cleaned_data.get(f'vote_{course.id}')
+            dish_id = form.cleaned_data.get(f'dish_{course.id}')
+            if vote:
+                Rating.objects.create(
+                    survey=self.object,
+                    course=course,
+                    vote=int(vote),
+                    dish_id = dish_id if dish_id else None
+                )
+
+        return response
+    
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['courses'] = Course.objects.all()
+    #     return context
