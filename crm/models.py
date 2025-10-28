@@ -19,7 +19,7 @@ class Rating(models.Model):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, verbose_name="Survey", related_name='ratings')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Portata")
     vote = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)], 
+        validators=[MinValueValidator(1), MaxValueValidator(49)], 
         verbose_name="Punteggio"
     )
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Piatto" )

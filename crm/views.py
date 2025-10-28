@@ -84,13 +84,13 @@ class SurveyView(LoginRequiredMixin, CreateView):
         for course in Course.objects.all():
             #a questo punto devi usare form.cleaned_data e NON request.POST
             vote = form.cleaned_data.get(f'vote_{course.id}')
-            dish_id = form.cleaned_data.get(f'dish_{course.id}')
+            dish = form.cleaned_data.get(f'dish_{course.id}')
             if vote:
                 Rating.objects.create(
                     survey=self.object,
                     course=course,
                     vote=int(vote),
-                    dish_id = dish_id if dish_id else None
+                    dish_id = dish.id
                 )
 
         return response

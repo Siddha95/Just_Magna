@@ -79,7 +79,7 @@ class SurveyForm(forms.ModelForm):
                 required = True,
                 label=f'{course_title} valutazione',
                 initial= 3,
-                validators = [MinValueValidator(1), MaxValueValidator(5)],
+                # validators = [MinValueValidator(1), MaxValueValidator(5)],
                 widget= forms.NumberInput(attrs= {
                     'type': 'range',
                     'min': '1',
