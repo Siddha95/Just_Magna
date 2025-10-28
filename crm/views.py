@@ -14,6 +14,7 @@ class SuccessView(TemplateView):
     template_name = "crm/success.html"
 class SuccessSurveyView(TemplateView):
     template_name = "crm/success_survey.html"
+
 class ContactView(FormView):
     form_class = ContactForm
     template_name = "crm/contact.html"
@@ -48,21 +49,6 @@ class ContactView(FormView):
             recipient_list=[settings.NOTIFY_EMAIL],
         )
         return super(ContactView, self).form_valid(form)
-    
-
-# class AddRatingView(LoginRequiredMixin, CreateView):
-#     form_class = RatingForm
-#     template_name = 'crm/rating_form.html'
-#     success_url = reverse_lazy('add-survey')
-
-
-# class AddSurveyView(LoginRequiredMixin, CreateView):
-#     form_class = SurveyForm
-#     template_name = 'crm/survey_form.html'
-
-#     def get_success_url(self):
-#         return reverse_lazy("success-survey")
-
 
 class SurveyView(LoginRequiredMixin, CreateView):
     model = Survey
@@ -90,12 +76,9 @@ class SurveyView(LoginRequiredMixin, CreateView):
                     survey=self.object,
                     course=course,
                     vote=int(vote),
-                    dish_id = dish.id
+                    dish_id = dish.id if dish else None
                 )
 
         return response
     
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['courses'] = Course.objects.all()
-    #     return context
+
