@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, FormView, DetailView
 from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 
 
 # Create your views here.
@@ -65,7 +66,7 @@ class SurveyView(LoginRequiredMixin, CreateView):
             try: 
                 survey = Survey.objects.get(user=request.user)
                 #REDIRECT SU DETAIL VIEW 
-                return redirect(reverse("survey-detail", kwargs={"pk": survey.pk}))
+                return redirect(reverse_lazy("survey-detail", kwargs={"pk": survey.pk}))
                 #redirect(SurveyDetailView pk = survey.id) )scritto a cazzo vedi comem si fa
             except Survey.DoesNotExist:
                 pass
@@ -94,12 +95,19 @@ class SurveyView(LoginRequiredMixin, CreateView):
 
         return response
 
+
+
 class SurveyDetailView(DetailView):
     
     model = Survey
-    #manca il controllo: se il survey non ha user = request.user -> morte
-    
 
+    def get_object(self, queryset = None):
+        
+        obj = super().get_object(queryset)
+        if obj.user != self.request.user:
+            raise PermissionDenied()
+        return obj   
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # self.object è oggetto mostrato
