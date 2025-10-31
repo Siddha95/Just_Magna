@@ -57,26 +57,20 @@ class SurveyView(LoginRequiredMixin, CreateView):
     form_class = SurveyForm
     template_name = 'crm/survey_form.html'
     success_url = reverse_lazy('success-survey')
-
+    
     #check se utente ha fatto un survey
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
 
-        if request.user.is_authenticated:
+        if request.method == 'GET' and request.user.is_authenticated:
             try: 
-                survey = Survey.objects.get(user=request.user)
-                #REDIRECT SU DETAIL VIEW 
+                survey = Survey.objects.get(user=request.user)             
                 return redirect(reverse_lazy("survey-detail", kwargs={"pk": survey.pk}))
-                #redirect(SurveyDetailView pk = survey.id) )scritto a cazzo vedi comem si fa
             except Survey.DoesNotExist:
                 pass
         
         return response
-
-        #if Survey.objects.filter(user=request.user).exists():
-        #    return render(request, 'crm/survey_detail.html')
-        
-
+    
     def form_valid(self, form):
         user = self.request.user
         form.instance.user = user 
