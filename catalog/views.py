@@ -20,8 +20,7 @@ class CatalogView(ListView):
 
 # dettagli piatto
 class CatalogDetailView(LoginRequiredMixin, DetailView):
-    login_url = "/login/"
-    redirect_field_name = "redirect_to"
+    
     model = Dish
 
     def get_context_data(self, **kwargs):
@@ -44,13 +43,9 @@ class DishCreateView(CreateView):
 
 # view per amministrazione 
 class IngredientAdminView(LoginRequiredMixin, ListView):
-    login_url = "/login/"
-    redirect_field_name = "redirect_to"
     model = Ingredient
 
 class DishAdminView(LoginRequiredMixin, ListView):
-    login_url = "/login/"
-    redirect_field_name = "redirect_to"
     model = Dish
 
 # view per eliminare ingrediente

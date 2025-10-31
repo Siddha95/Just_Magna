@@ -144,3 +144,7 @@ LOGOUT_REDIRECT_URL = 'home'
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" # new
 DEFAULT_FROM_EMAIL = "vlrfranchi1@gmail.com"
 NOTIFY_EMAIL = "vlrfranchi1@gmail.com"
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

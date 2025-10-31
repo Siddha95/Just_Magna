@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
+from django.shortcuts import reverse
 from django.core.mail import send_mail
 from django.conf import settings 
-from django.shortcuts import reverse
+from .models import Rating, Survey
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView, FormView
+from django.views.generic import TemplateView, CreateView, FormView, DetailView
 from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -56,25 +57,31 @@ class SurveyView(LoginRequiredMixin, CreateView):
     template_name = 'crm/survey_form.html'
     success_url = reverse_lazy('success-survey')
 
+    #check se utente ha fatto un survey
     def dispatch(self, request, *args, **kwargs):
-    # Try to dispatch to the right method; if a method doesn't exist,
-    # defer to the error handler. Also defer to the error handler if the
-    # request method isn't on the approved list.
-        if Survey.objects.filter(user=request.user).exists():
-            return render(request, 'crm/survey_already_submitted.html')
-        return super().dispatch(request, *args, **kwargs)
+        response = super().dispatch(request, *args, **kwargs)
+
+        if request.user.is_authenticated:
+            try: 
+                survey = Survey.objects.get(user=request.user)
+                #REDIRECT SU DETAIL VIEW 
+                return redirect(reverse("survey-detail", kwargs={"pk": survey.pk}))
+                #redirect(SurveyDetailView pk = survey.id) )scritto a cazzo vedi comem si fa
+            except Survey.DoesNotExist:
+                pass
+        
+        return response
+
+        #if Survey.objects.filter(user=request.user).exists():
+        #    return render(request, 'crm/survey_detail.html')
+        
 
     def form_valid(self, form):
-        # form.instance.user = self.request.user 
         user = self.request.user
-        # if Survey.objects.filter(user=user).exists():
-        #     return render(self.request, 'crm/unsuccess_form.html')
         form.instance.user = user 
-        # questa salva il nuovo oggetto Survey nel database
         response =  super().form_valid(form)
 
         for course in Course.objects.all():
-            #a questo punto devi usare form.cleaned_data e NON request.POST
             vote = form.cleaned_data.get(f'vote_{course.id}')
             dish = form.cleaned_data.get(f'dish_{course.id}')
             if vote:
@@ -86,4 +93,16 @@ class SurveyView(LoginRequiredMixin, CreateView):
                 )
 
         return response
+
+class SurveyDetailView(DetailView):
+    
+    model = Survey
+    #manca il controllo: se il survey non ha user = request.user -> morte
+    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # self.object è oggetto mostrato
+        context["ratings"] = Rating.objects.filter(survey = self.object)
+        return context
     

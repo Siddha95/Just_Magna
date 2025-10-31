@@ -8,6 +8,7 @@ urlpatterns = [
     path('success-survey/', SuccessSurveyView.as_view(), name='success-survey'),
 
     path('survey/', SurveyView.as_view(), name='survey'),
+    path('survey/<int:pk>/', SurveyDetailView.as_view(), name='survey-detail'),
     # path('survey-detail/<int:pk>/', SurveyDetailView.as_view(), name='survey-detail'),
 ]
     

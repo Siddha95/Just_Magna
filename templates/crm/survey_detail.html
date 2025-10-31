@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Survey di utente: {{ survey.user }}</h1>
+    <h2>Ratings</h2>
+    <ul>
+        {% for rating in ratings %}
+            <li>{{ rating.course }} - Voto: {{ rating.vote }}</li>
+            <p>
+                Piatto preferito della portata -
+                {% if rating.dish %}
+                    {{ rating.dish }}
+                {% else %}
+                    Non specificato.
+                {% endif %}
+            </p>
+        {% endfor %}
+    </ul>
+    <h2>Feedback Ricevuto</h2>
+    <p>{{ survey.feedback }}</p>
+{% endblock %}
