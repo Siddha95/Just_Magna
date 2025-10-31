@@ -46,6 +46,13 @@
                             </ul>
                         </div>
                     </div>
+                    {% comment %} LE PORTATE STANNO QUI ALEEEEE, NON TI ROVINARE LA VISTA {% endcomment %}
+                    <h5 class="mb-3">Le Nostre Portate</h5>
+                    {% for course in all_courses %}
+                        <li class="mb-2">
+                            <a href="">{{ course.title }}</a>
+                        </li>
+                    {% endfor %}
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <h5 class="mb-4">Seguici</h5>
