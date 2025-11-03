@@ -59,17 +59,27 @@ class SurveyView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('success-survey')
     
     #check se utente ha fatto un survey
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
+    # def dispatch(self, request, *args, **kwargs):
+    #     response = super().dispatch(request, *args, **kwargs)
 
-        if request.method == 'GET' and request.user.is_authenticated:
-            try: 
-                survey = Survey.objects.get(user=request.user)             
-                return redirect(reverse_lazy("survey-detail", kwargs={"pk": survey.pk}))
-            except Survey.DoesNotExist:
-                pass
+    #     if request.method == 'GET' and request.user.is_authenticated:
+    #         try: 
+    #             survey = Survey.objects.get(user=request.user)             
+    #             return redirect(reverse_lazy("survey-detail", kwargs={"pk": survey.pk}))
+    #         except Survey.DoesNotExist:
+    #             pass
         
-        return response
+    #     return response
+    
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        try: 
+            survey = Survey.objects.get(user=request.user)
+            return redirect(reverse_lazy("survey-detail", kwargs={"pk": survey.pk}))
+        except Survey.DoesNotExist:
+            pass
+        return super().get(request, *args, **kwargs)
+
     
     def form_valid(self, form):
         user = self.request.user

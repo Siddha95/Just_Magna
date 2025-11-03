@@ -1,5 +1,5 @@
 from .models import Course
 
-def all_courses(request):
+def courses_list(request):
     
-    return {'all_courses': Course.objects.all()}
+    return {'courses_list': Course.objects.all()}
