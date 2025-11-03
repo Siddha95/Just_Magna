@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Survey di utente: {{ survey.user }}</h1>
-    <h2>Ratings</h2>
-    <ul>
-        {% for rating in ratings %}
-            <li>{{ rating.course }} - Voto: {{ rating.vote }}</li>
-            <p>
-                Piatto preferito della portata -
-                {% if rating.dish %}
-                    {{ rating.dish }}
-                {% else %}
-                    Non specificato.
-                {% endif %}
-            </p>
-        {% endfor %}
-    </ul>
-    <h2>Feedback Ricevuto</h2>
-    <p>{{ survey.feedback }}</p>
+    <div class="container my-4">
+        <div class="card shadow-sm p-4">
+            <h1 class="mb-3">Survey di utente: {{ survey.user }}</h1>
+            <h2 class="h4 mt-4">Ratings</h2>
+            <ul class="list-group mb-4">
+                {% for rating in ratings %}
+                    <li class="mb-0 mt-2 text-muted">{{ rating.course }} - Voto: {{ rating.vote }}</li>
+                    <p>
+                        Piatto preferito della portata -
+                        {% if rating.dish %}
+                            <span class="fw-semibold">{{ rating.dish }}</span>
+                        {% else %}
+                            Non specificato.
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </ul>
+            <h2 class="h4">Feedback Ricevuto</h2>
+            <p class="fst-italic">{{ survey.feedback }}</p>
+        </div>
+    </div>
 {% endblock %}
