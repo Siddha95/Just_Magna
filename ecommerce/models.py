@@ -1,6 +1,8 @@
 from django.conf import settings 
 from django.db import models 
 from django.utils import timezone 
+from django.contrib.auth.models import User
+from catalog.models import Dish
 
 
 
@@ -17,15 +19,27 @@ class Voucher(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Utente")
     
+    def __str__(self):
+        return f"Carrello di Utente - {self.user.username}"
 
-class User(models.Model):
-    name = models.CharField(max_length=200)
-    surname = models.CharField(max_length=200)
-    date_of_birth = models.DateField()
-    email = models.EmailField((""), max_length=200)
-
+class Cart_dish(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name="Carrello", related_name="dishes")
+    dish = models.ForeignKey(Dish, on_delete=models.CASCADE, verbose_name="Piatti")
+    quantity = models.IntegerField(verbose_name="Quantità")
 
     def __str__(self):
-        return (self.name + ' ' + self.surname)
+        return f"Lista carrello con id - {self.cart.id}"
+class Order(models.Model):
+    pass
+     
+class Address(models.Model):
+    pass 
+
+class Invoice(models.Model):
+    pass 
 
