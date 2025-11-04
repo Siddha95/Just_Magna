@@ -64,17 +64,17 @@
                         </div>
                     </div>
                 </div>
-                {% if related_dishes %}
-                    <div class="container mt-5">
-                        <h3 class="mb-4 text-center">Altri piatti della stessa portata</h3>
-                        <div class="row justify-content-center">
-                            {% for dish in related_dishes %}
-                                {% include "catalog/partials/dish_card.html" with piatto=dish %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endif %}
             </div>
+            {% if related_dishes %}
+                <div class="container mt-5">
+                    <h3 class="mb-4 text-center">Altri piatti della stessa portata</h3>
+                    <div class="row justify-content-center">
+                        {% for dish in related_dishes %}
+                            {% include "catalog/partials/dish_card.html" with piatto=dish %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
