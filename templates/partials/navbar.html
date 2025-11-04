@@ -23,12 +23,14 @@
             </div>
             <div class="login-logout">
                 {% if user.is_authenticated %}
-                    <span class="navbar-text me-2">Ciao, {{ user.username }}!</span>
-                    <a href="{% url 'password_change' %}">Cambia Password</a>
-                    <form action="{% url 'logout' %}" method="post" class="nopadding">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary ">Logout</button>
-                    </form>
+                    <div class="d-flex align-items-center gap-2 ms-auto">
+                        <span class="navbar-text me-2">Ciao, {{ user.username }}!</span>
+                        <a href="{% url 'password_change' %}">Cambia Password</a>
+                        <form action="{% url 'logout' %}" method="post" class="nopadding">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary ">Logout</button>
+                        </form>
+                    </div>
                 {% else %}
                     <span class="navbar-text me-2">Non sei loggato, vergognati</span>
                     <a href="{% url 'login' %}" class="btn btn-primary btn-sm">Log In</a>
