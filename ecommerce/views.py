@@ -1,6 +1,6 @@
 from .forms import *
 from django.http import HttpResponseRedirect
-from django.views import View
+from django.views import View, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from .models import Cart, Cart_dish
@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, redirect
 
 
 
-class AddCartView(LoginRequiredMixin, View):
+class CartAddView(LoginRequiredMixin, View):
     
 
     def post(self, request, dish_id):
@@ -22,10 +22,10 @@ class AddCartView(LoginRequiredMixin, View):
             dish = dish,
             defaults={'quantity':quantity}
             )
-        
+        #devo inserire nel template un modo per gestire i messaggi
         if created:
             messages.info(request, "Hai appena creato un nuovo carrello!")
-            
+
         if not dish_created:
             cart_dish.quantity += 1
             cart_dish.save()
@@ -42,4 +42,5 @@ class AddCartView(LoginRequiredMixin, View):
 
         
 
-# fai una view e basta, senza formView
+class CartTemplateView(LoginRequiredMixin, TemplateView):
+    pass
