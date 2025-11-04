@@ -2,11 +2,13 @@
 <html>
   {% include 'partials/header.html' %}
   <body>
-    <div class="wrapper">
+    <div class="wrapper d-flex flex-column min-vh-100">
       {% include 'partials/navbar.html' %}
-      {% block content %}{% endblock %}
+      <main class="flex-fill">
+        {% block content %}{% endblock %}
+      </main>
       {% include 'partials/footer.html' %}
-      {% include 'partials/sidebar.html' %}
     </div>
+    {% include 'partials/sidebar.html' %}
   </body>
 </html>

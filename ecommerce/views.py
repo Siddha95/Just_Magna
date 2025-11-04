@@ -1,10 +1,11 @@
 from .forms import *
 from django.http import HttpResponseRedirect
-from django.views import View, TemplateView
+from django.views import View
+from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from .models import Cart, Cart_dish
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
 
 
