@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 class CatalogView(ListView):
-    paginate_by = 3
+    paginate_by = 4
     model = Dish
     context_object_name = "dishes"
     template_name = "catalog/catalog_list.html"

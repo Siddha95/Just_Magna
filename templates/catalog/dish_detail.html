@@ -1,58 +1,80 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container dish-details">
-        <div class="row">
-            <h1>Nome del Piatto: {{ dish.name }}</h1>
-            <img src="{{ dish.image.url }}"
-                 class="card-img dish-detail-photo"
-                 alt="...">
-            <p>
-                <strong>{{ dish.course }}</strong>
-            </p>
-            <p>
-                <strong>Descrizione:</strong> {{ dish.descrizione }}
-            </p>
-            {% comment %} <p><strong>Gluten Free:</strong> {{ dish.gluten_free }}</p>
-<p><strong>Vegetariano:</strong> {{ dish.vegetarian }}</p>
-            <p><strong>Vegano:</strong> {{ dish.vegan }}</p> {% endcomment %}
-            <p>
-                <strong>Gluten Free:</strong>
-                {% if dish.gluten_free %}
-                    SI
-                {% else %}
-                    NO
-                {% endif %}
-            </p>
-            <p>
-                <strong>Vegetariano:</strong>
-                {% if dish.vegetarian %}
-                    SI
-                {% else %}
-                    NO
-                {% endif %}
-            </p>
-            <p>
-                <strong>Vegano:</strong>
-                {% if dish.vegan %}
-                    SI
-                {% else %}
-                    NO
-                {% endif %}
-            </p>
-            <p>
-                <strong>Prezzo: $</strong> {{ dish.price }}
-            </p>
-        </div>
-        <a href="" class="btn btn-primary">Aggiungi al Carrello</a>
-        {% if related_dishes %}
-            <div class="container same-course">
-                <h2>Altri piatti della stessa portata:</h2>
-                <div class="row">
-                    {% for dish in related_dishes %}
-                        {% include "catalog/partials/dish_card.html" with piatto=dish %}
-                    {% endfor %}
+    <div class="container my-5 justify-content-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <h1 class="card-title mb-3">{{ dish.name }}</h1>
+                            <img src="{{ dish.image.url }}"
+                                 alt="{{ dish.name }}"
+                                 class="img-fluid rounded mb-3"
+                                 style="max-height: 350px;
+                                        object-fit: cover">
+                            <h5 class="text-muted">{{ dish.course }}</h5>
+                        </div>
+                        <div class="row text-center my-4">
+                            <p>
+                                <strong>Descrizione:</strong> {{ dish.descrizione }}
+                            </p>
+                        </div>
+                        <div class="row text-center my-4">
+                            <div class="col">
+                                <span class="badge {% if dish.gluten_free %}bg-success{% else %}bg-secondary{% endif %}">
+                                    Gluten Free:
+                                    {% if dish.gluten_free %}
+                                        SI
+                                    {% else %}
+                                        NO
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="col">
+                                <span class="badge {% if dish.vegetarian %}bg-success{% else %}bg-secondary{% endif %}">
+                                    Vegetariano:
+                                    {% if dish.vegetarian %}
+                                        SI
+                                    {% else %}
+                                        NO
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="col">
+                                <span class="badge {% if dish.vegan %}bg-success{% else %}bg-secondary{% endif %}">
+                                    Vegano:
+                                    {% if dish.vegan %}
+                                        SI
+                                    {% else %}
+                                        NO
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        <h4 class="text-center mb-4">
+                            Prezzo: <span class="text-primary fw-bold">€{{ dish.price }}</span>
+                        </h4>
+                        <div class="text-center">
+                            <form method="post" action="{% url 'add_to_cart' dish.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-shopping-cart me-2"></i> Aggiungi al Carrello
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+                {% if related_dishes %}
+                    <div class="container mt-5">
+                        <h3 class="mb-4 text-center">Altri piatti della stessa portata</h3>
+                        <div class="row justify-content-center">
+                            {% for dish in related_dishes %}
+                                {% include "catalog/partials/dish_card.html" with piatto=dish %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
+        </div>
     </div>
 {% endblock %}
