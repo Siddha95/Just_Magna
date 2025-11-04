@@ -55,8 +55,9 @@
                             Prezzo: <span class="text-primary fw-bold">€{{ dish.price }}</span>
                         </h4>
                         <div class="text-center">
-                            <form method="post" action="{% url 'add_to_cart' dish.id %}">
+                            <form method="post">
                                 {% csrf_token %}
+                                {{ form.as_p }}
                                 <button type="submit" class="btn btn-primary btn-lg">
                                     <i class="fas fa-shopping-cart me-2"></i> Aggiungi al Carrello
                                 </button>

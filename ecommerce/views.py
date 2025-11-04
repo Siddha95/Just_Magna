@@ -1,45 +1,36 @@
 from .forms import *
 from django.http import HttpResponseRedirect
-from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import messages
 from .models import Cart, Cart_dish
 from django.shortcuts import get_object_or_404, redirect, render
 
 
 
 
-class CartAddView(LoginRequiredMixin, View):
+class CartAddFormView(LoginRequiredMixin, FormView):
+    form_class = CartForm
     
 
-    def post(self, request, dish_id):
+    def form_valid(self, form):
+        dish_id = self.kwargs.get('dish_id')
         dish = get_object_or_404(Dish, id=dish_id)
-        quantity = int(request.POST.get('quantity', 1))
-        #created diventa vera se viene creato il cart
-        cart= Cart.objects.get_or_create(user=request.user)
+        quantity = form.cleaned_data.get('quantity', 1)
+        user = self.request.user
+        cart, created= Cart.objects.get_or_create(user=user)
         cart_dish, dish_created = Cart_dish.objects.get_or_create(
             cart = cart,
             dish = dish,
             defaults={'quantity':quantity}
             )
-        #devo inserire nel template un modo per gestire i messaggi
         
         if not dish_created:
-            cart_dish.quantity += 1
+            cart_dish.quantity += quantity
             cart_dish.save()
-            messages.success(
-                request,
-                f'Quantità di "{dish.name}" aggiornata a {cart_dish.quantity}'
-            )
-        else:
-            messages.success(
-                request,
-                f'"{dish.name}" aggiunto al carrello!'
-            )
-        return redirect(request.META.get('HTTP_REFERER', '/'))
-
-        
+         
+    
+        return redirect(self.request.META.get('HTTP_REFERER', '/'))
+    
 
 class CartTemplateView(LoginRequiredMixin, TemplateView):
     pass

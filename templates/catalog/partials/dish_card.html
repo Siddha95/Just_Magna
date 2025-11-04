@@ -16,12 +16,7 @@
                    class="btn btn-outline-primary w-100 mb-2">
                     <i class="fas fa-info-circle me-2"></i> Dettagli
                 </a>
-                <form method="post" action="{% url 'add_to_cart' dish.id %}" class="w-100">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="fas fa-shopping-cart me-2"></i> Aggiungi al Carrello
-                    </button>
-                </form>
+                {% include 'ecommerce/partials/cart_form.html' %}
             </div>
         </div>
     </div>

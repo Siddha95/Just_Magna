@@ -33,7 +33,7 @@ class Cart_dish(models.Model):
     quantity = models.IntegerField(verbose_name="Quantità")
 
     def __str__(self):
-        return f"Lista carrello con id - {self.cart.id}"
+        return f"Id del carrello - {self.cart.id}"
 class Order(models.Model):
     pass
      
