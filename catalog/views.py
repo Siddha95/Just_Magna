@@ -4,6 +4,7 @@ from .models import Dish, Ingredient
 from .forms import *
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from ecommerce.forms import AddToCartForm
 
 # Create your views here.
 
@@ -13,18 +14,19 @@ class CatalogView(ListView):
     context_object_name = "dishes"
     template_name = "catalog/catalog_list.html"
 
-    
 
 # se il template ha lo stesso nome del model non serve specificarlo con tempalte name
-
-
 # dettagli piatto
-class CatalogDetailView(LoginRequiredMixin, DetailView):
+class DishDetailView(LoginRequiredMixin, DetailView):
     
     model = Dish
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        add_to_cart_form =  AddToCartForm(
+            # dish_id=self.object.id
+        )
+        context['add_to_cart_form'] = add_to_cart_form
         if self.object.course:
             context['related_dishes'] = Dish.objects.filter(course=self.object.course).exclude(id=self.object.id)
        

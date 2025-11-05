@@ -9,28 +9,46 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 
 class CartAddFormView(LoginRequiredMixin, FormView):
-    form_class = CartForm
-    
+    form_class = AddToCartForm
+    http_method_names = ['post']
+    template_name = 'catalog/catalog_list.html'
 
+    # def get(self, *args, **kwargs):
+    #     return redirect('/')
+    def get_context_data(self, **kwargs):
+        """Passa il dish al template"""
+        context = super().get_context_data(**kwargs)
+        dish_id = self.kwargs['dish_id']
+        context['dish'] = get_object_or_404(Dish, id=dish_id)
+        return context
+
+    def form_invalid(self, form):
+        print("form_invalid:", form.errors)
+        return redirect('/')
+    
     def form_valid(self, form):
-        dish_id = self.kwargs.get('dish_id')
+        print("BELLLLAAAAA")
+        dish_id = self.kwargs['dish_id']
         dish = get_object_or_404(Dish, id=dish_id)
-        quantity = form.cleaned_data.get('quantity', 1)
+        quantity = form.cleaned_data['quantity']
         user = self.request.user
-        cart, created= Cart.objects.get_or_create(user=user)
-        cart_dish, dish_created = Cart_dish.objects.get_or_create(
+        cart, _ = Cart.objects.get_or_create(user=user)
+        cart_dish, created = Cart_dish.objects.get_or_create(
             cart = cart,
             dish = dish,
             defaults={'quantity':quantity}
             )
         
-        if not dish_created:
+        if not created:
             cart_dish.quantity += quantity
             cart_dish.save()
          
     
         return redirect(self.request.META.get('HTTP_REFERER', '/'))
-    
+
 
 class CartTemplateView(LoginRequiredMixin, TemplateView):
+
+    
     pass
+

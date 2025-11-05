@@ -54,15 +54,7 @@
                         <h4 class="text-center mb-4">
                             Prezzo: <span class="text-primary fw-bold">€{{ dish.price }}</span>
                         </h4>
-                        <div class="text-center">
-                            <form method="post">
-                                {% csrf_token %}
-                                {{ form.as_p }}
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    <i class="fas fa-shopping-cart me-2"></i> Aggiungi al Carrello
-                                </button>
-                            </form>
-                        </div>
+                        <div class="text-center">{% include "ecommerce/partials/cart_form.html" with dish=dish %}</div>
                     </div>
                 </div>
             </div>
@@ -78,4 +70,4 @@
             {% endif %}
         </div>
     </div>
-{% endblock %}
+{% endblock content %}

@@ -5,7 +5,7 @@ from .views import *
 urlpatterns = [
     # Catalog app
     path("", CatalogView.as_view(), name='home'),
-    path("dish/<int:pk>/", CatalogDetailView.as_view(), name="dish-detail"),
+    path("dish/<int:pk>/", DishDetailView.as_view(), name="dish-detail"),
     path("dish/create", DishCreateView.as_view(), name="dish-create"),
     path("dish/delete/<str:pk>", DeleteDishView.as_view(), name="dish-delete"),
     path("dish/update/<str:pk>", UpdateDishView.as_view(), name="dish-update"),

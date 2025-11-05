@@ -2,8 +2,27 @@ from django import forms
 from .models import *
 
 
-class CartForm(forms.ModelForm):
+class AddToCartForm(forms.Form):
+    quantity = forms.IntegerField(
+        min_value=1,
+        max_value=10,
+        initial=1,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control text-center',
+            'style': 'width: 80px;',
+        })
+    )
 
-    class Meta:
-        model = Cart 
-        fields = []
+
+    
+
+    # dish = 
+
+#   
+    
+
+
+
+    
+
+    
