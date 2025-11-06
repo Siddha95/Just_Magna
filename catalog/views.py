@@ -24,7 +24,7 @@ class DishDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         add_to_cart_form =  AddToCartForm(
-            # dish_id=self.object.id
+            initial={'dish_id': self.object.id}
         )
         context['add_to_cart_form'] = add_to_cart_form
         if self.object.course:

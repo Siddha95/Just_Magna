@@ -13,26 +13,19 @@ class CartAddFormView(LoginRequiredMixin, FormView):
     http_method_names = ['post']
     template_name = 'catalog/catalog_list.html'
 
-    # def get(self, *args, **kwargs):
+    # def form_invalid(self, form):
+    #     print("form_invalid:", form.errors)
     #     return redirect('/')
-    def get_context_data(self, **kwargs):
-        """Passa il dish al template"""
-        context = super().get_context_data(**kwargs)
-        dish_id = self.kwargs['dish_id']
-        context['dish'] = get_object_or_404(Dish, id=dish_id)
-        return context
-
-    def form_invalid(self, form):
-        print("form_invalid:", form.errors)
-        return redirect('/')
     
     def form_valid(self, form):
-        print("BELLLLAAAAA")
-        dish_id = self.kwargs['dish_id']
-        dish = get_object_or_404(Dish, id=dish_id)
+        print(form.cleaned_data)
+        dish_id = form.cleaned_data['dish_id']
+        
         quantity = form.cleaned_data['quantity']
         user = self.request.user
+        dish = get_object_or_404(Dish, id=dish_id)
         cart, _ = Cart.objects.get_or_create(user=user)
+
         cart_dish, created = Cart_dish.objects.get_or_create(
             cart = cart,
             dish = dish,
