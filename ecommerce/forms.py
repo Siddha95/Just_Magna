@@ -16,10 +16,6 @@ class AddToCartForm(forms.Form):
     dish_id = forms.IntegerField(widget=forms.HiddenInput())
 
     
-
-    # dish = 
-
-#   
     
 
 

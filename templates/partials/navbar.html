@@ -36,6 +36,10 @@
                     <a href="{% url 'login' %}" class="btn btn-primary btn-sm">Log In</a>
                 {% endif %}
             </div>
+            <a href="{% url 'cart_list' %}" class="nav-link position-relative">
+                Cart
+                {% if cart_item_count %}<span class="badge">({{ cart_item_count }})</span>{% endif %}
+            </a>
         </div>
     </nav>
 {% endblock %}
