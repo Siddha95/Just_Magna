@@ -1,7 +1,7 @@
 from django.conf import settings 
 from django.db import models 
 from django.utils import timezone 
-
+ 
 
 
 class Course(models.Model):
@@ -21,8 +21,14 @@ class Dish(models.Model):
     descrizione = models.TextField(blank=True, null=True, verbose_name="Descrizione")
     image = models.ImageField(upload_to='images/', verbose_name="Immagine")
 
+    def get_add_to_cart_form(self):
+        from ecommerce.forms import AddToCartForm
+        return AddToCartForm(initial={"dish_id":self.id})
+    
     def __str__(self):
         return self.name
+    
+    
     
 class Ingredient(models.Model):
     name = models.CharField(max_length=200, verbose_name="Nome")

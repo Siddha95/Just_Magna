@@ -13,9 +13,10 @@ class CartAddFormView(LoginRequiredMixin, FormView):
     http_method_names = ['post']
     template_name = 'catalog/catalog_list.html'
 
-    # def form_invalid(self, form):
-    #     print("form_invalid:", form.errors)
-    #     return redirect('/')
+    def form_invalid(self, form):
+        print("form_invalid:", form.errors)
+    
+        return redirect('/')
     
     def form_valid(self, form):
         print(form.cleaned_data)
