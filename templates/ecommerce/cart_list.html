@@ -1,3 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Cart List{% endblock %}
-{% block content %}blablabla{% endblock %}
+{% block content %}
+    {% if product %}
+        {% for product in cart %}<div>{{ Cart_dish.dish }} {{ Dish.price }} {{ Cart_dish.quantity }}</div>{% endfor %}
+    {% else %}
+        <h1>Non ci sono prodotti nel tuo carrello. Hai finito i soldi?</h1>
+    {% endif %}
+{% endblock %}

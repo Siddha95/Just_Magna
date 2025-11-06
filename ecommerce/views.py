@@ -42,7 +42,20 @@ class CartAddFormView(LoginRequiredMixin, FormView):
 
 
 class CartTemplateView(LoginRequiredMixin, TemplateView):
+    template_name = "ecommerce/cart_list.html"	
+    model = Cart_dish
 
+
+
+    # def get_context_data(self,request, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+
+    #     cart = Cart.objects.filter(user=request.user )
+    #     dish = Cart_list.objects()
+    #     if self.object is not None:
+    #         kwargs.update(self.extra_context)
+    #     return context
     
-    pass
+
+#riparti da qui, cercad i capire come funziona get context data e tutte le sfaccettature.
 
