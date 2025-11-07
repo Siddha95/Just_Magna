@@ -43,18 +43,14 @@ class CartAddFormView(LoginRequiredMixin, FormView):
 
 class CartTemplateView(LoginRequiredMixin, TemplateView):
     template_name = "ecommerce/cart_list.html"	
-    model = Cart_dish
-
-
+    
 
     def get_context_data(self, **kwargs):
-        
         context = super().get_context_data(**kwargs)
-        # cart è elementi di cart dove user è uguale all'user che ha fatto la richiesta
+
         try: 
             cart = Cart.objects.get(user=self.request.user)
-        #cart_items sono gli oggetti di cart dish dove ii cart sono uguali a user id 
-            cart_items = Cart_dish.objects.filter(cart=cart).select_related("dish")
+            cart_items = Cart_dish.objects.filter(cart=cart)
 
             #somma dei costi
             total = 0
