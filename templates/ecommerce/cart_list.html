@@ -20,6 +20,9 @@
             {% empty %}
                 <p class="text-center text-muted mt-3">Il carrello è vuoto 🛒</p>
             {% endfor %}
+            <br>
+            <div class="text-end">Totale: {{ total }} $</div>
+            <br>
         </div>
     {% endif %}
 {% endblock %}

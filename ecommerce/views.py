@@ -55,7 +55,16 @@ class CartTemplateView(LoginRequiredMixin, TemplateView):
             cart = Cart.objects.get(user=self.request.user)
         #cart_items sono gli oggetti di cart dish dove ii cart sono uguali a user id 
             cart_items = Cart_dish.objects.filter(cart=cart).select_related("dish")
+
+            #somma dei costi
+            total = 0
+            for item in cart_items:
+                total += item.dish.price * item.quantity
+
+        
             context["cart_items"] = cart_items
+            context["total"] = total
+
         except Cart.DoesNotExist:
             pass
     
