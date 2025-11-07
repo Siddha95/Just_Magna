@@ -2,6 +2,7 @@ from .models import Cart, Cart_dish
 from django.db.models import Sum
 
 def cart_item_count(request):
+    cart_count = 0
     if request.user.is_authenticated:
        
         try:
@@ -10,6 +11,6 @@ def cart_item_count(request):
             cart_count = cart_user_dish.aggregate(Sum('quantity'))['quantity__sum']
             
         except Cart.DoesNotExist:
-            cart_count = 0
+            pass
             
     return{'cart_item_count': cart_count}

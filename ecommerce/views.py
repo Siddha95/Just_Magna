@@ -47,15 +47,19 @@ class CartTemplateView(LoginRequiredMixin, TemplateView):
 
 
 
-    # def get_context_data(self,request, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-
-    #     cart = Cart.objects.filter(user=request.user )
-    #     dish = Cart_list.objects()
-    #     if self.object is not None:
-    #         kwargs.update(self.extra_context)
-    #     return context
+    def get_context_data(self, **kwargs):
+        
+        context = super().get_context_data(**kwargs)
+        # cart è elementi di cart dove user è uguale all'user che ha fatto la richiesta
+        try: 
+            cart = Cart.objects.get(user=self.request.user)
+        #cart_items sono gli oggetti di cart dish dove ii cart sono uguali a user id 
+            cart_items = Cart_dish.objects.filter(cart=cart).select_related("dish")
+            context["cart_items"] = cart_items
+        except Cart.DoesNotExist:
+            pass
+    
+        return context
     
 
-#riparti da qui, cercad i capire come funziona get context data e tutte le sfaccettature.
 

@@ -1,9 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Cart List{% endblock %}
 {% block content %}
-    {% if product %}
-        {% for product in cart %}<div>{{ Cart_dish.dish }} {{ Dish.price }} {{ Cart_dish.quantity }}</div>{% endfor %}
-    {% else %}
-        <h1>Non ci sono prodotti nel tuo carrello. Hai finito i soldi?</h1>
+    {% if cart_items %}
+        <div class="container mt-4">
+            <h1 class="display-2 text-center text-primary">Carrello di {{ user.username }}</h1>
+        </div>
+        <div class="container mt-4">
+            {% for item in cart_items %}
+                <div class="d-flex align-items-center border-bottom py-2">
+                    <img src="{{ item.dish.image.url }}"
+                         alt="{{ item.dish.name }}"
+                         width="250"
+                         class="rounded me-3">
+                    <div class="flex-grow-1">
+                        <strong>{{ item.dish.name }}</strong>
+                        <p class="text-end">{{ item.quantity }} x {{ item.dish.price }} €</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-center text-muted mt-3">Il carrello è vuoto 🛒</p>
+            {% endfor %}
+        </div>
     {% endif %}
 {% endblock %}
