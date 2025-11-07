@@ -24,6 +24,15 @@ class Voucher(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Utente")
     
+
+    def cart_total(self):
+        total = 0
+        for item in self.dishes.select_related("dish"):
+            total += item.dish.price * item.quantity
+        return total
+
+    
+
     def __str__(self):
         return f"Carrello di Utente - {self.user.username}"
 
@@ -31,7 +40,7 @@ class Cart_dish(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name="Carrello", related_name="dishes")
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE, verbose_name="Piatti")
     quantity = models.IntegerField(verbose_name="Quantità")
-
+    
     def __str__(self):
         return f"Id del carrello - {self.cart.id}"
 class Order(models.Model):

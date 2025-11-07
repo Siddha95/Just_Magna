@@ -37,7 +37,7 @@
                 {% endif %}
             </div>
             <a href="{% url 'cart_list' %}" class="nav-link position-relative">
-                Cart
+                <i class="bi bi-cart">Cart</i>
                 {% if cart_item_count %}<span class="badge">({{ cart_item_count }})</span>{% endif %}
             </a>
         </div>

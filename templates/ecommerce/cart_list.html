@@ -3,7 +3,7 @@
 {% block content %}
     {% if cart_items %}
         <div class="container mt-4">
-            <h1 class="display-2 text-center text-primary">Carrello di {{ user.username }}</h1>
+            <h1 class="display-2 text-center text-primary">Carrello</h1>
         </div>
         <div class="container mt-4">
             {% for item in cart_items %}
@@ -11,18 +11,17 @@
                     <img src="{{ item.dish.image.url }}"
                          alt="{{ item.dish.name }}"
                          width="250"
-                         height="250"
-                         class="rounded me-3">
+                         class="img-fluid rounded object-fit-cover me-3">
                     <div class="flex-grow-1">
                         <strong>{{ item.dish.name }}</strong>
                         <p class="text-end">{{ item.quantity }} x {{ item.dish.price }} €</p>
                     </div>
                 </div>
             {% empty %}
-                <p class="text-center text-muted mt-3">Il carrello è vuoto 🛒</p>
+                <p class="text-center text-muted mt-3">Il carrello è vuoto, caccia li sordi!</p>
             {% endfor %}
             <br>
-            <div class="text-end">Totale: {{ total }} $</div>
+            <div class="text-end">Totale: {{ cart.cart_total }} €</div>
             <br>
         </div>
     {% endif %}

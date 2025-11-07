@@ -53,13 +53,12 @@ class CartTemplateView(LoginRequiredMixin, TemplateView):
             cart_items = Cart_dish.objects.filter(cart=cart)
 
             #somma dei costi
-            total = 0
-            for item in cart_items:
-                total += item.dish.price * item.quantity
+            
 
         
             context["cart_items"] = cart_items
-            context["total"] = total
+            context["cart"] = cart
+        
 
         except Cart.DoesNotExist:
             pass
