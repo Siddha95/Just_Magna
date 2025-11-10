@@ -17,7 +17,7 @@ class Dish(models.Model):
     gluten_free = models.BooleanField(default=False, verbose_name="Senza glutine")
     vegetarian = models.BooleanField(default=False, verbose_name="Vegetariano")
     vegan = models.BooleanField(default=False, verbose_name="Vegano")
-    price = models.FloatField(blank=True, null=True, verbose_name="Prezzo")
+    price = models.FloatField(blank=True, null=True, default=0, verbose_name="Prezzo")
     descrizione = models.TextField(blank=True, null=True, verbose_name="Descrizione")
     image = models.ImageField(upload_to='images/', verbose_name="Immagine")
 

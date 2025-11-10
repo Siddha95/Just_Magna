@@ -1,12 +1,15 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <div class="form-container">
-        <form method="POST" enctype="multipart/form-data">
+    <div class="card shadow p-4 mx-auto">
+        {% comment %} <form method="POST" enctype="multipart/form-data">
             <h1>Inserisci un Piatto</h1>
             <h4>Movite pure</h4>
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form|crispy }}
             <button type="submit" class="btn btn-primary">Inserisci</button>
-        </form>
+        </form> {% endcomment %}
+        {% csrf_token %}
+        {% crispy form %}
     </div>
 {% endblock content %}
