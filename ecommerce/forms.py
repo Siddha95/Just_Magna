@@ -17,9 +17,18 @@ class AddToCartForm(forms.Form):
 
     dish_id = forms.IntegerField(widget=forms.HiddenInput())
 
-    
-    
 
+class UpdateQuantityForm(forms.ModelForm):
+    class Meta: 
+        model = Cart_dish
+       
+        fields = ['quantity',]
+        widgets = {
+            'quantity': forms.NumberInput(attrs={
+            'class': 'form-control text-center',
+            'style': 'width: 80px;',
+            })
+        }
 
 
     

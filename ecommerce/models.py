@@ -23,7 +23,6 @@ class Voucher(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Utente")
-    
 
     def cart_total(self):
         total = 0
@@ -41,8 +40,16 @@ class Cart_dish(models.Model):
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE, verbose_name="Piatti")
     quantity = models.IntegerField(verbose_name="Quantità")
     
+    def get_update_quantity_form(self):
+        from ecommerce.forms import UpdateQuantityForm
+        return UpdateQuantityForm(instance=self)
+
     def __str__(self):
         return f"Id del carrello - {self.cart.id}"
+    
+
+
+
 class Order(models.Model):
     pass
      

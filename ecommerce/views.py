@@ -1,7 +1,9 @@
 from .forms import *
-from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView, FormView
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import UpdateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 from .models import Cart, Cart_dish
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -51,10 +53,6 @@ class CartTemplateView(LoginRequiredMixin, TemplateView):
         try: 
             cart = Cart.objects.get(user=self.request.user)
             cart_items = Cart_dish.objects.filter(cart=cart)
-
-            #somma dei costi
-            
-
         
             context["cart_items"] = cart_items
             context["cart"] = cart
@@ -67,3 +65,20 @@ class CartTemplateView(LoginRequiredMixin, TemplateView):
     
 
 
+class QuantityEditView(SuccessMessageMixin, UpdateView):
+    model = Cart_dish
+    form_class = UpdateQuantityForm
+    template_name = 'ecommerce/cart_list.html'
+    success_url = reverse_lazy('cart_list')
+    success_message = "La quantità è stata aggiornata correttamente!"
+    
+
+    def form_valid(self, form):
+        
+        cart_item = form.save(commit=False)
+        if cart_item.quantity == 0:
+            cart_item.delete()
+        else:
+            cart_item.save()
+        return super().form_valid(form)
+    

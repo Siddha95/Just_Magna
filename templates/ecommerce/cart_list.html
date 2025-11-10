@@ -7,16 +7,27 @@
         </div>
         <div class="container mt-4">
             {% for item in cart_items %}
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <img src="{{ item.dish.image.url }}"
-                         alt="{{ item.dish.name }}"
-                         width="250"
-                         class="img-fluid rounded object-fit-cover me-3">
-                    <div class="flex-grow-1">
-                        <strong>{{ item.dish.name }}</strong>
-                        <p class="text-end">{{ item.quantity }} x {{ item.dish.price }} €</p>
+                {% if item.quantity > 0 %}
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <img src="{{ item.dish.image.url }}"
+                             alt="{{ item.dish.name }}"
+                             width="250"
+                             class="img-fluid rounded object-fit-cover me-3">
+                        <div class="flex-grow-1">
+                            <strong>{{ item.dish.name }}</strong>
+                            <div class="text-start">
+                                <form method="post" action="{% url 'quantity_edit' item.pk %}">
+                                    {% csrf_token %}
+                                    {{ item.get_update_quantity_form.as_p }}
+                                    <button type="submit" class="btn btn-primary me-auto">
+                                        <i class="fas fa-shopping-cart me-2"></i> Aggiorna
+                                    </button>
+                                </form>
+                            </div>
+                            <p class="text-end">{{ item.quantity }} x {{ item.dish.price }} €</p>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             {% empty %}
                 <p class="text-center text-muted mt-3">Il carrello è vuoto, caccia li sordi!</p>
             {% endfor %}
