@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from .models import *
 from django.utils.safestring import mark_safe
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, HTML
+from crispy_forms.layout import Layout, Submit, HTML, Fieldset, Field
 
 
 class ContactForm(forms.Form):
@@ -56,22 +56,26 @@ class SurveyForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         courses = Course.objects.all()
-
+        #Crispy
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.form_class = 'survey-form'
+        self.helper.add_input(Submit('submit', 'Invia il sondaggio'))
+        self.helper.layout = Layout()
+        
         for course in courses:
             course_id = course.id
-            course_title = course.title
-            vote_field = f'vote_{course_id}'
 
+            vote_field = f'vote_{course_id}'
             self.fields[vote_field] = forms.IntegerField(
                 required=True,
-                label=mark_safe(f'<h2>{course_title} valutazione</h2>'),
+                label=mark_safe(f'<h3>Valutazione</h3>'),
                 initial=3,
                 widget= forms.NumberInput(attrs= {
                     'type':'range',
                     'min':'1',
                     'max':'5',
                     'step':'1',
-                    # 'class':'form-range' bootstrap non se po vede
                 }),
                 help_text="Trascina lo slider in base a quanto sei soddisfatto"
             )
@@ -85,13 +89,31 @@ class SurveyForm(forms.ModelForm):
                 widget=forms.Select()
             )
 
+            self.helper.layout.append(
+            Fieldset(
+                mark_safe(f'<h1>{course.title}</h1>'),
+                vote_field,
+                HTML('<br></br>'),
+                dish_field,
+                HTML('<br></br>')
+
+                )
+            )
+
+
+        self.helper.layout.append(
+            Fieldset(
+                mark_safe('<h1 style="text-align:center;">Feedback Generale</h1>'),
+                Field('feedback', show_label=False)
+            )
+        )
+        #Crispy form
     class Meta:
         model = Survey
         fields = ("feedback", )
         widgets = {
             'feedback' : forms.Textarea(attrs={
-                'rows':5,
-                'placeholder':'Lasciaci il tuo feedback'
+                'placeholder':'Lasciaci il tuo feedback',
             })
         }
          

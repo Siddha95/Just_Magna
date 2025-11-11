@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <h1>Survey</h1>
-    <form method="post">
+    <div class="card shadow p-4 mx-auto">
         {% csrf_token %}
-        <h2>Hai dei suggerimenti per migliorare il nostro servizio?</h2>
-        {{ form.as_p }}
-        <div class="form-actions">
-            <button "submit" class="btn btn-primary">Invia il Survey</button>
-        </div>
-    </form>
-{% endblock %}
+        {% crispy form %}
+    </div>
+{% endblock content %}

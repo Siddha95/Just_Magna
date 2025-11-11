@@ -8,7 +8,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Survey(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Utente")
-    feedback = models.CharField(max_length=200, blank=True, null=True, verbose_name="Feedback")
+    feedback = models.CharField(max_length=200, blank=True, null=True, verbose_name="")
     
     def __str__(self):
         return f"Survey di utente - {self.user.username}"
