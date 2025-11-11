@@ -10,7 +10,6 @@ class AddToCartForm(forms.Form):
         initial=1,
         widget=forms.NumberInput(attrs={
             'class': 'form-control text-center',
-            'style': 'width: 80px;',
 
         })
     )
@@ -26,7 +25,7 @@ class UpdateQuantityForm(forms.ModelForm):
         widgets = {
             'quantity': forms.NumberInput(attrs={
             'class': 'form-control text-center',
-            'style': 'width: 80px;',
+
             })
         }
 

@@ -76,6 +76,7 @@ class SurveyForm(forms.ModelForm):
                     'min':'1',
                     'max':'5',
                     'step':'1',
+                    'class': 'form-range col-sm-2',
                 }),
                 help_text="Trascina lo slider in base a quanto sei soddisfatto"
             )
@@ -86,7 +87,9 @@ class SurveyForm(forms.ModelForm):
                 required=False,
                 label=f"Scegli un piatto preferito(se vuoi)",
                 empty_label="Seleziona un piatto",
-                widget=forms.Select()
+                widget=forms.Select(attrs={
+                    'class': 'col-sm-6',
+                })
             )
 
             self.helper.layout.append(

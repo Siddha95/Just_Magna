@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="card shadow p-4 mx-auto">
+    <div class="card shadow p-4 mx-auto col-sm-6">
         {% csrf_token %}
         {% crispy form %}
     </div>

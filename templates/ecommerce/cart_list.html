@@ -16,7 +16,9 @@
                         <div class="flex-grow-1">
                             <strong>{{ item.dish.name }}</strong>
                             <div class="text-start">
-                                <form method="post" action="{% url 'quantity_edit' item.pk %}">
+                                <form method="post"
+                                      action="{% url 'quantity_edit' item.pk %}"
+                                      class="mini-form-quantity">
                                     {% csrf_token %}
                                     {{ item.get_update_quantity_form.as_p }}
                                     <button type="submit" class="btn btn-primary me-auto">
