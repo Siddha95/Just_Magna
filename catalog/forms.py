@@ -10,7 +10,13 @@ class IngredientForm(forms.ModelForm):
         widgets = {
             # 'name': forms.TextInput(attrs={'class':'form-control'})
         }
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.form_enctype = 'multipart/form-data'
+        self.helper.add_input(Submit('submit', 'Salva ingrediente'))
+        
 class DishForm(forms.ModelForm):
 
     class Meta:

@@ -2,6 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 from .models import *
 from django.utils.safestring import mark_safe
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, HTML
 
 
 class ContactForm(forms.Form):
@@ -42,6 +44,12 @@ class ContactForm(forms.Form):
                 "Devi fornire almeno un'email o un numero di telefono"
             )
         return cleaned_data
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Invia messaggio'))
         
 class SurveyForm(forms.ModelForm):
 

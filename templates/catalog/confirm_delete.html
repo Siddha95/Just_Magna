@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
     {% load static %}
     <div class="form-container">
-        <form class="delete-form" method="post">
-            {% csrf_token %}
-            <p>
-                Sei sicuro che vuoi eliminare "{{ object }}"?
-                <br>
-                <img class="img-penti" src="{% static 'dishes/penti.png' %}">
-            </p>
-            <input type="submit" value="Conferma">
-        </form>
+        <div class="card shadow-sm p-4">
+            <form class="delete-form" method="post">
+                {% csrf_token %}
+                <p>
+                    Sei sicuro che vuoi eliminare "{{ object }}"?
+                    <br>
+                    <img class="img-penti" src="{% static 'dishes/penti.png' %}">
+                </p>
+                <input type="submit" value="Conferma">
+            </form>
+        </div>
     </div>
 {% endblock %}
