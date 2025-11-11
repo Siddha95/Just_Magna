@@ -29,9 +29,5 @@ class DishForm(forms.ModelForm):
         self.helper.form_enctype = 'multipart/form-data'
         self.helper.add_input(Submit('submit', 'Salva piatto'))
 
-        self.helper.layout = Layout(
-            HTML('<h1>Inserisci un Piatto</h1>'),
-            HTML('<h2>Movite Pure</h2>')
-        )
 
         
