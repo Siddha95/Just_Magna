@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'crispy_bootstrap5',
+    'rest_framework',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
@@ -155,3 +156,9 @@ NOTIFY_EMAIL = "vlrfranchi1@gmail.com"
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    "PAGE_SIZE": 10,
+}

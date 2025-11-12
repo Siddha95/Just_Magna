@@ -1,5 +1,11 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 from .views import *
+
+router = routers.DefaultRouter()
+router.register(r"dishes", DishViewSet)
+router.register(r"courses", CourseViewSet)
+router.register(r"ingredients", IngredientViewSet)
 
 
 urlpatterns = [
@@ -15,6 +21,8 @@ urlpatterns = [
     path("ingredient/create", IngredientCreateView.as_view(), name="ingredient-create"),
     path("ingredient/update/<str:pk>", UpdateIngredientView.as_view(), name="ingredient-update"),
     path("ingredient/list", IngredientAdminView.as_view(), name="ingredient-list"),
-    
+
+    # DRF API routes
+    path("api/", include(router.urls)),    
 ]
 

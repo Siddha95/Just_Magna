@@ -61,6 +61,7 @@ class SurveyForm(forms.ModelForm):
         self.helper.form_method = 'post'
         self.helper.form_class = 'survey-form'
         self.helper.add_input(Submit('submit', 'Invia il sondaggio'))
+
         self.helper.layout = Layout()
         
         for course in courses:

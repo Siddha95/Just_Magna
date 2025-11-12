@@ -21,16 +21,15 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("crm.urls")),
+    path('crm/', include("crm.urls")),
     path('', include('catalog.urls')),
-    path('', include('ecommerce.urls')),
+    path('ecommerce/', include('ecommerce.urls')),
     path('accounts/', include("accounts.urls")),
-    path('accounts/', include("django.contrib.auth.urls")),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-

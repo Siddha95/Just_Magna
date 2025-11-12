@@ -1,10 +1,13 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Dish, Ingredient
+from .models import Dish, Ingredient, Course
 from .forms import *
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from ecommerce.forms import AddToCartForm
+
+from rest_framework import permissions, viewsets
+from .serializers import CourseSerializer, DishSerializer, IngredientSerializer
 
 # Create your views here.
 
@@ -71,5 +74,25 @@ class UpdateDishView(UpdateView):
     model = Dish
     form_class = DishForm
     success_url = reverse_lazy("dish-list")
+
+
+#VIEWSETS
+
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all().order_by("-id")
+    serializer_class = CourseSerializer
+    permission_classes = [permissions.IsAuthenticated] # permissions.AllowAny # permissions.IsAdminUser #permissions.IsAuthenticatedOrReadOnly
+
+class DishViewSet(viewsets.ModelViewSet):
+    queryset = Dish.objects.all().order_by("-id") #se aggiungi il '-' è dal piu recente a piu vecchio 
+    serializer_class = DishSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class IngredientViewSet(viewsets.ModelViewSet):
+    queryset = Ingredient.objects.all().order_by("-id") #se aggiungi il '-' è dal piu recente a piu vecchio 
+    serializer_class = IngredientSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
 
 
