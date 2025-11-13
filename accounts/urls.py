@@ -7,6 +7,8 @@ from accounts import views
 urlpatterns = [
     path("signup/", SignUpView.as_view(), name="signup"),
     path("", include("django.contrib.auth.urls")),
+
+    # DRF API
     path("users/", views.UserListAPIView.as_view()),    
 ]
 

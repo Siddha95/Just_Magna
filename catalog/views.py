@@ -6,9 +6,11 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from ecommerce.forms import AddToCartForm
 
-from rest_framework import permissions, viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny 
 from .serializers import CourseSerializer, DishSerializer, IngredientSerializer
-
+from rest_framework import status
 # Create your views here.
 
 class CatalogView(ListView):
@@ -78,22 +80,50 @@ class UpdateDishView(UpdateView):
 
 #VIEWSETS
 
-class CourseViewSet(viewsets.ModelViewSet):
-    queryset = Course.objects.all().order_by("-id")
-    serializer_class = CourseSerializer
-    permission_classes = [permissions.IsAuthenticated] # permissions.AllowAny # permissions.IsAdminUser #permissions.IsAuthenticatedOrReadOnly
-
-class DishViewSet(viewsets.ModelViewSet):
-    queryset = Dish.objects.all().order_by("-id") #se aggiungi il '-' è dal piu recente a piu vecchio 
-    serializer_class = DishSerializer
-    permission_classes = []
+class CourseListAPIView(APIView):
+    permission_classes = [AllowAny]
     
+    def get(self, request, format=None):
+        courses = Course.objects.all()
+        serializer = CourseSerializer(courses, many=True)
+        return Response(serializer.data)
 
-class IngredientViewSet(viewsets.ModelViewSet):
-    queryset = Ingredient.objects.all().order_by("-id") #se aggiungi il '-' è dal piu recente a piu vecchio 
-    serializer_class = IngredientSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request, format=None):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class DishListAPIView(APIView):
+    permission_classes = []
 
+    def get(self, request, format=None):
+        dishes = Dish.objects.all()
+        serializer = DishSerializer(dishes, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+
+        serializer = DishSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class IngredientListAPIView(APIView):
+    permission_classes = []
+
+    def get(self, request, format=None):
+        ingredient = Ingredient.objects.all()
+        serializer = IngredientSerializer(ingredient, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+        serializer = IngredientSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
