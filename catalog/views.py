@@ -32,7 +32,6 @@ class DishDetailView(LoginRequiredMixin, DetailView):
             context['related_dishes'] = Dish.objects.filter(course=self.object.course).exclude(id=self.object.id)
        
         return context
-
 # crea da admin views
 class IngredientCreateView(CreateView):
     template_name = "catalog/ingredient_form.html"
