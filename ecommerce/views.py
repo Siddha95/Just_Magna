@@ -7,6 +7,8 @@ from django.urls import reverse_lazy
 from .models import Cart, Cart_dish
 from django.shortcuts import get_object_or_404, redirect, render
 
+from rest_framework import permissions, viewsets
+from .serializers import CartSerializer, CartDishSerializer, VoucherSerializer
 
 
 
@@ -82,3 +84,18 @@ class QuantityEditView(SuccessMessageMixin, UpdateView):
             cart_item.save()
         return super().form_valid(form)
     
+class VoucherViewSet(viewsets.ModelViewSet):
+    queryset = Voucher.objects.all().order_by('-id')
+    serializer_class = VoucherSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    
+class CartViewSet(viewsets.ModelViewSet):
+    queryset = Cart.objects.all().order_by('-id')
+    serializer_class = CartSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class CartDishViewSet(viewsets.ModelViewSet):
+    queryset = Cart_dish.objects.all().order_by('-id')
+    serializer_class = CartDishSerializer
+    permission_classes = [permissions.IsAuthenticated]

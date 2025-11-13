@@ -9,6 +9,9 @@ from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 
+from rest_framework import permissions, viewsets
+from .serializers import SurveySerializer, RatingSerializer
+
 
 # Create your views here.
 
@@ -117,4 +120,19 @@ class SurveyDetailView(DetailView):
         # self.object è oggetto mostrato
         context["ratings"] = Rating.objects.filter(survey = self.object)
         return context
+    
+
+#Viewsets
+
+
+class RatingViewSet(viewsets.ModelViewSet):
+    queryset = Rating.objects.all().order_by("-id")
+    serializer_class = RatingSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class SurveyViewSet(viewsets.ModelViewSet):
+    queryset = Survey.objects.all().order_by("-id")
+    serializer_class = SurveySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
     

@@ -86,7 +86,8 @@ class CourseViewSet(viewsets.ModelViewSet):
 class DishViewSet(viewsets.ModelViewSet):
     queryset = Dish.objects.all().order_by("-id") #se aggiungi il '-' è dal piu recente a piu vecchio 
     serializer_class = DishSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
+    
 
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all().order_by("-id") #se aggiungi il '-' è dal piu recente a piu vecchio 
