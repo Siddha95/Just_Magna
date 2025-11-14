@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from ecommerce.forms import AddToCartForm
 
+from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny 
@@ -93,6 +94,9 @@ class CourseListAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
 
 class DishListAPIView(APIView):
     permission_classes = []
@@ -109,6 +113,38 @@ class DishListAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+
+class DishDetailAPIView(APIView):
+    permission_classes = []
+
+       # Retrieve, update or delete a dish instance.
+    def get_object(self, pk):
+        try:
+            return Dish.objects.get(pk=pk)
+        except Dish.DoesNotExist:
+            raise Http404
+    def get(self, request, pk, format=None):
+        dish = self.get_object(pk)
+        serializer = DishSerializer(dish)
+        return Response(serializer.data)
+    
+    def put(self, request, pk, format=None):
+        dish = self.get_object(pk)
+        serializer = DishSerializer(dish, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk, format=None):
+        dish = self.get_object(pk)
+        dish.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    
 
 class IngredientListAPIView(APIView):
     permission_classes = []
