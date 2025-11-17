@@ -9,8 +9,10 @@ from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, mixins
 from .serializers import SurveySerializer, RatingSerializer
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 # Create your views here.
@@ -123,16 +125,19 @@ class SurveyDetailView(DetailView):
     
 
 #Viewsets
-
-
-class RatingViewSet(viewsets.ModelViewSet):
-    queryset = Rating.objects.all().order_by("-id")
+# provo con custom viewset
+class RatingViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Rating.objects.all()
     serializer_class = RatingSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    #PERCHÈ NON SI VEDE NIENTE IN GET E MI TORNA ERRORE? 
+    
 class SurveyViewSet(viewsets.ModelViewSet):
     queryset = Survey.objects.all().order_by("-id")
     serializer_class = SurveySerializer
+    authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     

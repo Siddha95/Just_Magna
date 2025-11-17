@@ -4,8 +4,8 @@ from .views import *
 
 
 router = routers.DefaultRouter()
-router.register(r"surveys", SurveyViewSet)
-router.register(r"ratings", RatingViewSet)
+router.register(r"surveys", SurveyViewSet, basename='survey')
+router.register(r"ratings", RatingViewSet, basename='rating')
 
 urlpatterns = [
     path("contact/", ContactView.as_view(), name="contact"),

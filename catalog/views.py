@@ -9,7 +9,8 @@ from ecommerce.forms import AddToCartForm
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny 
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from .serializers import CourseSerializer, DishSerializer, IngredientSerializer
 from rest_framework import status
 # Create your views here.
@@ -99,8 +100,9 @@ class CourseListAPIView(APIView):
 
 
 class DishListAPIView(APIView):
-    permission_classes = []
-
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication] 
+    
     def get(self, request, format=None):
         dishes = Dish.objects.all()
         serializer = DishSerializer(dishes, many=True)
@@ -118,7 +120,8 @@ class DishListAPIView(APIView):
 
 
 class DishDetailAPIView(APIView):
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication] 
 
        # Retrieve, update or delete a dish instance.
     def get_object(self, pk):
@@ -126,6 +129,7 @@ class DishDetailAPIView(APIView):
             return Dish.objects.get(pk=pk)
         except Dish.DoesNotExist:
             raise Http404
+        
     def get(self, request, pk, format=None):
         dish = self.get_object(pk)
         serializer = DishSerializer(dish)
