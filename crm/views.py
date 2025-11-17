@@ -132,7 +132,7 @@ class RatingViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     
-    #PERCHÈ NON SI VEDE NIENTE IN GET E MI TORNA ERRORE? 
+    #PERCHÈ NON SI VEDE NIENTE IN GET E MI TORNA ERRORE? perche non era model serializer e il course non aveva un viewset
     
 class SurveyViewSet(viewsets.ModelViewSet):
     queryset = Survey.objects.all().order_by("-id")

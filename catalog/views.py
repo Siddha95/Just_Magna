@@ -151,7 +151,8 @@ class DishDetailAPIView(APIView):
     
 
 class IngredientListAPIView(APIView):
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication] 
 
     def get(self, request, format=None):
         ingredient = Ingredient.objects.all()
