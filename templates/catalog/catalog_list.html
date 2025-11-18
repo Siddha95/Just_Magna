@@ -7,63 +7,57 @@
             Concediti ora una favolosa pausa ricca di sapore e di carboidrati. E'
             scientificamente provato: i nostri piatti ti aiutano a scrivere un codice più performante
         </p>
-        <button type="button" class="btn btn-primary">Ordina Subito!</button>
-        <button type="button" class="btn btn-secondary">Contattaci</button>
-    </div>
-    <div class="container">
-        <div class="row">
-            {% for dish in object_list %}
-                {% include "catalog/partials/dish_card.html" with dish=dish %}
-            {% endfor %}
+        <br>
+        <div class="mb-4">
+            <form method="get" class="mb-4">
+                <input type="text"
+                       name="q"
+                       class="form-control"
+                       placeholder="Cerca un piatto che vorresti più tardi espellere"
+                       value="{{ request.GET.q }}">
+            </form>
         </div>
-    </div>
-    <div class="paginator">
-        {% if is_paginated %}
-            <ul class="pagination justify-content-center">
-                {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
-                    </li>
-                {% endif %}
-                {% for i in paginator.page_range %}
-                    {% if page_obj.number == i %}
+        <br>
+        <br>
+        {% comment %} <button type="button" class="btn btn-primary">Ordina Subito!</button> {% endcomment %}
+        <div class="container">
+            <div class="row">
+                {% for dish in object_list %}
+                    {% include "catalog/partials/dish_card.html" with dish=dish %}
+                {% empty %}
+                    <p class="text-muted">Nessun piatto trovato.</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="paginator">
+            {% if is_paginated %}
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
                         <li class="page-item">
-                            <a class="page-link active">{{ i }}</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
                         </li>
                     {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link">&raquo;</a>
-                    </li>
-                {% endif %}
-            </ul>
-        {% endif %}
-    </div>
-    {% comment %} <div class='pagination'>
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number}}">precedente</a>
+                    {% for i in paginator.page_range %}
+                        {% if page_obj.number == i %}
+                            <li class="page-item">
+                                <a class="page-link active">{{ i }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link">&raquo;</a>
+                        </li>
+                    {% endif %}
+                </ul>
             {% endif %}
-
-            <span class="current">
-                Pagina {{ page_obj.number }} di {{ page_obj.paginator.num_pages }}.
-            </span>
-
-            {% if page_obj.has_next %} 
-                <a href="?page={{ page_obj.next_number }}">prossima</a>
-                <a heref="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a>
-            {% endif %}
-
-        </span>
-    </div> {% endcomment %}
-{% endblock %}
+        </div>
+    {% endblock %}

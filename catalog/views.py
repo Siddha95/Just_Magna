@@ -21,6 +21,17 @@ class CatalogView(ListView):
     context_object_name = "dishes"
     template_name = "catalog/catalog_list.html"
 
+    def get_queryset(self):
+        print("DEBUG:", self.request.GET)
+
+        queryset = super().get_queryset()
+        q = self.request.GET.get("q", "")
+
+        if q:
+            queryset = queryset.filter(name__icontains=q)
+
+        return queryset
+
 
 # se il template ha lo stesso nome del model non serve specificarlo con tempalte name
 # dettagli piatto
