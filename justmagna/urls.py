@@ -27,12 +27,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('crm/', include("crm.urls")),
     path('', include('catalog.urls')),
+    path('api/', include('catalog.urls_api')),
+    
     path('ecommerce/', include('ecommerce.urls')),
     path('accounts/', include("accounts.urls")),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    #per login basato su sessione
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     #token auth
     path('api-token-auth/', views.obtain_auth_token),

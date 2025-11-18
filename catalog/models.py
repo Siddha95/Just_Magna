@@ -5,10 +5,10 @@ from django.utils import timezone
 
 
 class Course(models.Model):
-    title = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.title
+        return self.name
     
 
 class Dish(models.Model):

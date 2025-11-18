@@ -95,7 +95,7 @@ class SurveyForm(forms.ModelForm):
 
             self.helper.layout.append(
             Fieldset(
-                mark_safe(f'<h1>{course.title}</h1>'),
+                mark_safe(f'<h1>{course.name}</h1>'),
                 vote_field,
                 HTML('<br></br>'),
                 dish_field,

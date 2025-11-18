@@ -9,7 +9,7 @@ class VoucherSerializer(serializers.ModelSerializer):
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
-        fields = ['user'] 
+        fields = ['user','id'] 
 
 class CartDishSerializer(serializers.ModelSerializer):
     class Meta: 

@@ -17,17 +17,17 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
-class SuccessView(TemplateView):
-    template_name = "crm/success.html"
-class SuccessSurveyView(TemplateView):
-    template_name = "crm/success_survey.html"
+class FeedbackSuccessView(TemplateView):
+    template_name = "crm/feedback_success.html"
+class SurveySuccessView(TemplateView):
+    template_name = "crm/survey_success.html"
 
 class ContactView(FormView):
     form_class = ContactForm
-    template_name = "crm/contact.html"
+    template_name = "crm/contact_form.html"
 
     def get_success_url(self):
-        return reverse("success")
+        return reverse("feedback-success")
     
     def form_valid(self, form):
         name = form.cleaned_data.get("Nome")
@@ -61,7 +61,7 @@ class SurveyView(LoginRequiredMixin, CreateView):
     model = Survey
     form_class = SurveyForm
     template_name = 'crm/survey_form.html'
-    success_url = reverse_lazy('success-survey')
+    success_url = reverse_lazy('survey-success')
     
     #check se utente ha fatto un survey
     # def dispatch(self, request, *args, **kwargs):

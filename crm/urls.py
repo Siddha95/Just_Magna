@@ -4,14 +4,14 @@ from .views import *
 
 
 router = routers.DefaultRouter()
-router.register(r"surveys", SurveyViewSet, basename='survey')
-router.register(r"ratings", RatingViewSet, basename='rating')
+router.register(r"surveys", SurveyViewSet, basename='api-survey')
+router.register(r"ratings", RatingViewSet, basename='api-rating')
 
 urlpatterns = [
     path("contact/", ContactView.as_view(), name="contact"),
 
-    path("success/", SuccessView.as_view(), name="success"),
-    path('success-survey/', SuccessSurveyView.as_view(), name='success-survey'),
+    path("feedback/success/", FeedbackSuccessView.as_view(), name="feedback-success"),
+    path('survey/success', SurveySuccessView.as_view(), name='survey-success'),
 
     path('survey/', SurveyView.as_view(), name='survey'),
     path('survey/<int:pk>/', SurveyDetailView.as_view(), name='survey-detail'),
