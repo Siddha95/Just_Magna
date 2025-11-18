@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container mt-5 text-center">
+    <div class="card shadow p-4 mx-auto col-sm-6">
         <h1 class="text-center mb-4">Login</h1>
-        <form method="post">
+        <form method="post" class="text-center mb-4">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Accedi</button>
-            <div class="text-center">
-                <a href="{% url 'password_reset' %}">Password Reset</a>
-            </div>
+            <button type="submit" class="btn btn-primary">Accedi</button>
         </form>
+        <div class="text-center">
+            <a href="{% url 'password_reset' %} ">Password Reset</a>
+        </div>
+        <br>
+    </br>
+    <div class="card shadow p-4 mx-auto col-sm-6">
+        <h2 class="text-center mb-4">Non ancora registrato/a?</h2>
+        <a href="{% url 'signup' %}"class="text-center mb-4 btn btn-primary">Registrati</a>
     </div>
+</div>
 {% endblock %}
