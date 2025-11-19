@@ -8,10 +8,12 @@ from .models import Cart, Cart_dish
 from django.shortcuts import get_object_or_404, redirect, render
 
 
-class CartAddFormView(LoginRequiredMixin, FormView):
+class CartAddFormView(LoginRequiredMixin, SuccessMessageMixin, FormView):
     form_class = AddToCartForm
     http_method_names = ['post']
     template_name = 'catalog/catalog_list.html'
+    success_message = "Hai aggiunto l'oggetto al carrello!"
+    success_url = reverse_lazy('home')
 
     def form_invalid(self, form):
         print("form_invalid:", form.errors)
@@ -38,7 +40,7 @@ class CartAddFormView(LoginRequiredMixin, FormView):
             cart_dish.save()
          
     
-        return redirect(self.request.META.get('HTTP_REFERER', '/'))
+        return super().form_valid(form)
 
 
 class CartTemplateView(LoginRequiredMixin, TemplateView):
