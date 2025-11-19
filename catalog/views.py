@@ -17,8 +17,6 @@ class CatalogView(ListView):
     template_name = "catalog/catalog_list.html"
 
     def get_queryset(self):
-        print("DEBUG:", self.request.GET)
-
         queryset = super().get_queryset()
         q = self.request.GET.get("q", "")
 
