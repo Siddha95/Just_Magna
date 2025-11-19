@@ -126,18 +126,5 @@ class SurveyDetailView(DetailView):
 
 #Viewsets
 # provo con custom viewset
-class RatingViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    queryset = Rating.objects.all()
-    serializer_class = RatingSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-    
-    #PERCHÈ NON SI VEDE NIENTE IN GET E MI TORNA ERRORE? perche non era model serializer e il course non aveva un viewset
-    
-class SurveyViewSet(viewsets.ModelViewSet):
-    queryset = Survey.objects.all().order_by("-id")
-    serializer_class = SurveySerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
 
     

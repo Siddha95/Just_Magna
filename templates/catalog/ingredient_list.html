@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class= "ingredienti-header">
+    <div class= "container my-5 text-center">
         <h1>Ingredienti Registrati</h1>
         <p>Lista di tutti gli ingredienti registrati a sistema</p>
     </div>
     <div class="add-button">
-        <button class="button-ingredient-add">
+        <button class="btn btn-secondary">
             <a href="{% url 'ingredient-create' %}">Aggiungi</a>
         </button>
     </div>

@@ -26,11 +26,13 @@ from rest_framework.authtoken import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('crm/', include("crm.urls")),
+    path('crm/', include("crm.urls_api")),
     path('', include('catalog.urls')),
     path('api/', include('catalog.urls_api')),
-    
     path('ecommerce/', include('ecommerce.urls')),
+    path('ecommerce/', include('ecommerce.urls_api')),
     path('accounts/', include("accounts.urls")),
+    path('accounts/', include("accounts.urls_api")),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     #per login basato su sessione

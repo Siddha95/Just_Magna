@@ -5,7 +5,7 @@ from rest_framework import serializers
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ["title"]
+        fields = ["name"]
 
 
 class DishSerializer(serializers.ModelSerializer):
