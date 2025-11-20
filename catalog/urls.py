@@ -16,5 +16,4 @@ urlpatterns = [
     path("ingredient/update/<str:pk>", IngredientUpdateView.as_view(), name="ingredient-update"),
     path("ingredient/", IngredientAdminView.as_view(), name="ingredient-list"),
 
-    
 ]

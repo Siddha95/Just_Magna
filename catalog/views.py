@@ -19,11 +19,11 @@ class CatalogView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         q = self.request.GET.get("q", "")
-
         if q:
             queryset = queryset.filter(name__icontains=q)
-
         return queryset
+            
+
 
 
 # se il template ha lo stesso nome del model non serve specificarlo con tempalte name
@@ -82,6 +82,4 @@ class DishUpdateView(UpdateView):
     form_class = DishForm
     success_url = reverse_lazy("dish-list")
 
-
-#VIEWSETS
 

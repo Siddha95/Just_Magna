@@ -8,16 +8,16 @@
             scientificamente provato: i nostri piatti ti aiutano a scrivere un codice più performante
         </p>
         <br>
+        <br>
         <div class="mb-4">
-            <form method="get" class="mb-4">
+            <form method='GET' class="mb-4">
                 <input type="text"
-                       name="q"
+                       name='q'
                        class="form-control"
-                       placeholder="Cerca un piatto che vorresti più tardi espellere"
+                       placeholder="Cerca un piatto che vorresti più tardi espellere e premi invio"
                        value="{{ request.GET.q }}">
             </form>
         </div>
-        <br>
         <br>
         {% comment %} <button type="button" class="btn btn-primary">Ordina Subito!</button> {% endcomment %}
         <div class="container">
