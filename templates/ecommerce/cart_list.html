@@ -6,8 +6,8 @@
             <h1 class="display-2 text-center text-primary">Carrello</h1>
         </div>
         <div class="container mt-4">
-            {% for item in cart_items %}
-                {% if item.quantity > 0 %}
+            {% if cart_items %}
+                {% for item in cart_items %}
                     <div class="d-flex align-items-center border-bottom py-2">
                         <img src="{{ item.dish.image.url }}"
                              alt="{{ item.dish.name }}"
@@ -29,11 +29,12 @@
                             <p class="text-end">{{ item.quantity }} x {{ item.dish.price }} €</p>
                         </div>
                     </div>
-                {% endif %}
-            {% empty %}
+                {% endfor %}
+            {% else %}
                 <p class="text-center text-muted mt-3">Il carrello è vuoto, caccia li sordi!</p>
-            {% endfor %}
+            {% endif %}
             <br>
+            <a href="{% url 'shipping' %}" class="btn btn-primary btn-sm">Acquista</a>
             <div class="text-end">Totale: {{ cart.cart_total }} €</div>
             <br>
         </div>

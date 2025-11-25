@@ -39,6 +39,14 @@ class Cart_dish(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name="Carrello", related_name="dishes")
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE, verbose_name="Piatti")
     quantity = models.IntegerField(verbose_name="Quantità")
+
+    def save(self, *args, **kwargs):
+        if self.quantity <= 0:
+            self.delete
+        else:
+            super().save(*args, **kwargs)
+
+        
     
     def get_update_quantity_form(self):
         from ecommerce.forms import UpdateQuantityForm

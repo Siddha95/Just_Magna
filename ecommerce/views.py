@@ -45,7 +45,6 @@ class CartAddFormView(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
 class CartTemplateView(LoginRequiredMixin, TemplateView):
     template_name = "ecommerce/cart_list.html"	
-    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -81,6 +80,36 @@ class QuantityEditView(SuccessMessageMixin, UpdateView):
         else:
             cart_item.save()
         return super().form_valid(form)
+    
+class ShippingFormView(LoginRequiredMixin, SuccessMessageMixin , FormView):
+    
+    form_class = ShippingForm
+    template_name = "ecommerce/shipping_form.html"
+    success_message = "Stiamo Processando il tuo ordine!"
+    success_url = reverse_lazy('home')
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+    def form_valid(self, form):
+        print("Belllasssssgmdjamgsndjsvm")
+        user = self.request.user
+        cart_id = self.request.session.get("cart_id")
+        address = form.cleaned_data['address']
+        comment = form.cleaned_data['comment']
+
+        self.request.session['shipping'] = {
+            "cart_id": cart_id,
+            "address": address,
+            "comment": comment,
+            "user": user.id
+        }
+
+
+    
+        return super().form_valid(form)
+
     
 
 

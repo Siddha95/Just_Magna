@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Shipping Form{% endblock %}
+{% block content %}
+  {% load static %}
+  <div class="container py-5 text-center">
+    <h1 class="mb-4 text-center">Checkout Sicuro</h1>
+    <form method="post" class="text-center mb-4">
+      {% csrf_token %}
+      {% crispy form %}
+    </form>
+  </div>
+{% endblock %}
